@@ -843,7 +843,7 @@ select.inp option{background:#f0f2f8}
       <div class="panel" id="p4"><div id="ai-inner">
         <div id="aihd">
           <div class="iw sm pu">🤖</div>
-          <div><div id="aitl">BD2.0 AI Brain</div><div style="font-size:.67rem;color:var(--tx3)">10X Intelligence Engine · Continuous Learning Active</div></div>
+          <div><div id="aitl">BD2.0 AI Brain</div><div style="font-size:.67rem;color:var(--tx3)">BD2 Intelligence Engine · Continuous Learning Active</div></div>
           <div id="lrn">⟳ Syncing...</div>
         <button class="btn ghost sm" onclick="testAIConnection()" style="margin-left:6px;font-size:.7rem">🧪 Test AI</button>
         </div>
@@ -2111,7 +2111,7 @@ async function genBrief(mode){
   const ctx=buildContext();
   const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
   const prompts={
-    deep:`You are the 10X Intelligence Engine for BD2.0 Command Center. Generate a DEEP DIVE briefing for ${today}.
+    deep:`You are the BD2 Intelligence Engine for BD2.0 Command Center. Generate a DEEP DIVE briefing for ${today}.
 
 Using this live data: ${ctx}
 
@@ -2137,7 +2137,7 @@ Deliver word-for-word scripts:
 
 Make every line ready to say out loud right now.`,
 
-    default:`You are the 10X Intelligence Engine for BD2.0 Command Center. Generate a powerful morning briefing for ${today}.
+    default:`You are the BD2 Intelligence Engine for BD2.0 Command Center. Generate a powerful morning briefing for ${today}.
 
 Using live data: ${ctx}
 

@@ -526,6 +526,7 @@ select.inp option{background:#f0f2f8}
       ⚡ Activate Intelligence System
     </button>
     <div class="ks-hint">Anthropic API key · Stored locally · Never transmitted · AI learns continuously</div>
+    <button class="btn ghost sm" style="width:100%;margin-top:8px;justify-content:center" onclick="testKey()">🧪 Test Key First</button>
     <div class="ks-pills">
       <span class="ks-pill">📊 Dashboard</span>
       <span class="ks-pill">📞 Call Tracker</span>
@@ -844,6 +845,7 @@ select.inp option{background:#f0f2f8}
           <div class="iw sm pu">🤖</div>
           <div><div id="aitl">BD2.0 AI Brain</div><div style="font-size:.67rem;color:var(--tx3)">10X Intelligence Engine · Continuous Learning Active</div></div>
           <div id="lrn">⟳ Syncing...</div>
+        <button class="btn ghost sm" onclick="testAIConnection()" style="margin-left:6px;font-size:.7rem">🧪 Test AI</button>
         </div>
         <div id="kbar"><span id="kbl">🧠 AI Context:</span><span id="kbt">Loading your sales intelligence...</span></div>
         <div id="agents-strip">
@@ -1550,7 +1552,10 @@ const KG_DEFAULT=[
 // STORAGE
 // ═══════════════════════════════════════════════════════
 function save(){try{const d={...S};d.chatHistory=d.chatHistory.slice(-50);localStorage.setItem('bd2_v2',JSON.stringify(d))}catch(e){}}
-function load(){try{const d=JSON.parse(localStorage.getItem('bd2_v2')||'{}');if(d.key)Object.assign(S,d);S.chatHistory=S.chatHistory||[];S.learningCtx=S.learningCtx||{};S.notifs=S.notifs||[];S.workflows=S.workflows||WORKFLOWS_DEFAULT;S.knowledge=S.knowledge||KG_DEFAULT;}catch(e){S.workflows=WORKFLOWS_DEFAULT;S.knowledge=KG_DEFAULT;}}
+function load(){try{const d=JSON.parse(localStorage.getItem('bd2_v2')||'{}');if(d.key)Object.assign(S,d);S.chatHistory=S.chatHistory||[];S.learningCtx=S.learningCtx||{};S.notifs=S.notifs||[];S.workflows=S.workflows||WORKFLOWS_DEFAULT;S.knowledge=S.knowledge||KG_DEFAULT;}catch(e){S.workflows=WORKFLOWS_DEFAULT;S.knowledge=KG_DEFAULT;}
+  // Restore key from backup if missing
+  if(!S.key){try{const b=localStorage.getItem('bd2_apikey');if(b)S.key=b;}catch(e){}}
+}
 
 // ═══════════════════════════════════════════════════════
 // LAUNCH
@@ -1570,7 +1575,18 @@ function launch(){
 function activateKey(){
   const k=document.getElementById('kinp').value.trim();
   if(!k){toast('Enter your Anthropic API key','rd');return;}
-  S.key=k;save();launch();
+  if(!k.startsWith('sk-ant-')){toast('Key should start with sk-ant-','rd');return;}
+  S.key=k;
+  // Save to both localStorage keys for redundancy
+  try{localStorage.setItem('bd2_apikey',k);}catch(e){}
+  save();launch();
+}
+// Also try to restore key from backup storage
+function restoreKey(){
+  try{
+    const backup=localStorage.getItem('bd2_apikey');
+    if(backup&&!S.key){S.key=backup;console.log('Key restored from backup');}
+  }catch(e){}
 }
 window.onload=function(){load();if(S.key)launch();};
 
@@ -2860,6 +2876,85 @@ function exportScorecard() {
   toast('📥 Scorecard exported!','gr');
 }
 
+
+// ═══════════════════════════════════════════════════════
+// API KEY TESTER
+// ═══════════════════════════════════════════════════════
+async function testKey(){
+  const k=document.getElementById('kinp').value.trim();
+  if(!k){toast('Enter your key first','rd');return;}
+  const btn=event.target;
+  btn.textContent='Testing...';btn.disabled=true;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':k,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:50,
+        messages:[{role:'user',content:'Say: BD2 AI Online'}]
+      })
+    });
+    const data=await res.json();
+    if(data.content&&data.content[0]){
+      btn.textContent='✅ Key Works! Click Activate';
+      btn.style.background='var(--gr-g)';btn.style.color='#fff';
+      btn.disabled=false;
+    } else if(data.error){
+      btn.textContent='❌ '+data.error.message;
+      btn.style.color='var(--rd1)';btn.disabled=false;
+    }
+  }catch(e){
+    btn.textContent='❌ Error: '+e.message;
+    btn.style.color='var(--rd1)';btn.disabled=false;
+    console.error('Key test error:',e);
+  }
+}
+
+async function testAIConnection(){
+  if(!S.key){toast('No API key — re-activate','rd');document.getElementById('ks').style.display='flex';return;}
+  toast('Testing AI connection...','bl');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':S.key,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:30,
+        messages:[{role:'user',content:'Reply with exactly: BD2 AI ONLINE'}]
+      })
+    });
+    const data=await res.json();
+    if(data.content&&data.content[0]){
+      const reply=data.content[0].text;
+      toast('✅ AI Connected: '+reply,'gr');
+      addMsg('sys','✅ AI Connection Confirmed — '+reply);
+      document.getElementById('aist').style.background='var(--gr1)';
+      document.getElementById('lrn').textContent='✅ AI Online';
+    } else {
+      const err=data.error?.message||'Unknown error';
+      toast('❌ AI Error: '+err,'rd');
+      addMsg('sys','❌ Connection Failed: '+err);
+      if(err.includes('API key')||err.includes('auth')){
+        setTimeout(()=>{document.getElementById('ks').style.display='flex';},1000);
+      }
+    }
+  }catch(e){
+    toast('❌ Network Error: '+e.message,'rd');
+    addMsg('sys','❌ Network Error: '+e.message+' — Check browser console (F12)');
+    console.error('AI test failed:',e);
+  }
+}
 </script>
 </body>
 </html>

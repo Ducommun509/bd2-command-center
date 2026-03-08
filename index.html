@@ -1914,13 +1914,21 @@ function rAnalytics(){
   }
 }
 async function genInsight(){
-  if(!S.key||(S.dials||0)<1)return;
+  if(!S.key) return;
   const ctx=buildContext();
   try{
-    const reply=await callAI([{role:'user',content:`Based on this sales data, give me ONE specific insight in 1-2 sentences max: ${ctx}`}],'You are a performance analyst. Be extremely concise and specific.');
-    document.getElementById('ai-insight').textContent=reply;
-    document.getElementById('insights').innerHTML=`<div style="font-size:.82rem;color:var(--tx2);line-height:1.65">${reply}</div>`;
-  }catch(e){}
+    const hasData=(S.dials||0)>0||(S.scorecard||[]).length>0;
+    const prompt=hasData
+      ? `Based on this live sales data, give me ONE sharp, specific insight or coaching tip in 1-2 sentences. Be direct and tactical: ${ctx}`
+      : `I'm Brandon Ducommun, a Cardone Ventures sales rep. Give me one powerful mindset tip or sales insight to start my day. Be brief and energizing.`;
+    const reply=await callAI([{role:'user',content:prompt}],'You are an elite sales performance analyst for Cardone Ventures. Be extremely concise, specific, and actionable.',300);
+    const el=document.getElementById('ai-insight');
+    if(el){el.textContent=reply;el.style.color='var(--tx2)';}
+    const ins=document.getElementById('insights');
+    if(ins){ins.innerHTML=`<div style="font-size:.82rem;color:var(--tx2);line-height:1.65;padding:4px 0">${reply}</div>`;}
+  }catch(e){
+    console.log('Insight error:',e.message);
+  }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1929,18 +1937,31 @@ async function genInsight(){
 function buildContext(){
   const t=S.dials||0,cl=S.closed||0,rev=S.revenue||0;
   const rate=t>0?Math.round((cl/t)*100):0;
-  const recentCalls=S.calls.slice(-8).map(c=>`${c.name}→${c.result}(${c.product||'?'})`).join(', ');
-  const recentDeals=S.deals.slice(-3).map(d=>`${d.client}:${d.product}:$${d.price}`).join(', ');
+  const recentCalls=(S.calls||[]).slice(-10).map(c=>c.name+'->'+c.result+'('+(c.product||'?')+')').join(', ');
+  const recentDeals=(S.deals||[]).slice(-5).map(d=>d.client+':'+d.product+':$'+d.price).join(', ');
   const agent=AGENTS[S.activeAgent||'sales'];
-  return `BD2.0 COMMAND CENTER — LIVE CONTEXT
-Closer: Brandon Ducommun | Cardone Ventures | Agent: ${agent?.name||'Sales Coach'}
-TODAY: Dials=${t} Connects=${S.connects||0} Closed=${cl} FU=${S.fu||0} NoSale=${S.noSale||0} Rate=${rate}% Revenue=$${rev}
-RANK: ${S.rank} | XP: ${S.xp} | Streak: ${S.streak} | Stage: ${['Prospecting','Appointment','Discovery','Presentation','Objections','CLOSE'][S.stage]}
-Recent Calls: ${recentCalls||'none yet'} | Recent Deals: ${recentDeals||'none yet'}
-AI Learn Cycles: ${S.learnCount||0} | Last Sync: ${S.lastLearn?new Date(S.lastLearn).toLocaleTimeString():'never'}
-PRODUCTS: Exec Elite Edge $1,997(CV-000199), VIP Elite Edge $1,997(CV-000201), Super VIP $4,997, 10xBA Full $5,988, 10xBA Monthly $499/mo, 10x360 $40,000
-KEY PEOPLE: Brandon Ducommun CSR, Brandon Dawson CEO, Natalie Dawson President, Grant Cardone Co-Founder
-MISSION: Close every qualified prospect 1st call using GC 6-step. Stack value before price. Anchor to ROI.`;
+  const sc=S.scorecard||[];
+  const scTot=sc.reduce((a,r)=>({d:a.d+(r.dials||0),r:a.r+(r.recos||0),c:a.c+(r.closed||0)}),{d:0,r:0,c:0});
+  const scRate=scTot.r>0?Math.round((scTot.c/scTot.r)*100):0;
+  const dt=S.dt||{};
+  const dtTotR=Object.values(dt).reduce((a,r)=>a+(r.r||0),0);
+  const dtTotC=Object.values(dt).reduce((a,r)=>a+(r.c||0),0);
+  const callLogs=(S.callLogs2||[]).slice(-5).map(l=>l.name+':'+l.result).join(', ');
+  const stageName=['Prospecting','Appointment','Discovery','Presentation','Objections','CLOSE'][S.stage||2];
+  return 'BD2.0 COMMAND CENTER — LIVE AI CONTEXT (Cycle #'+(S.learnCount||0)+')'
+    +'\nCLOSER: Brandon Ducommun | Cardone Ventures BD2'
+    +'\nACTIVE AGENT: '+(agent?.name||'Sales Coach')+' | MODE: '+(agent?.role||'Sales')
+    +'\nRANK: '+S.rank+' | XP: '+S.xp+' | Streak: '+(S.streak||0)
+    +'\nSTAGE: '+stageName
+    +'\nTODAY: Dials='+t+' Connects='+(S.connects||0)+' Closed='+cl+' FU='+(S.fu||0)+' NoSale='+(S.noSale||0)+' Rate='+rate+'% Revenue=$'+rev
+    +'\nSCORECARD ('+sc.length+' sessions): Dials='+scTot.d+' Recos='+scTot.r+' Closed='+scTot.c+' CloseRate='+scRate+'%'
+    +'\nJAN 2026: Recos='+dtTotR+' Closed='+dtTotC+' Rate='+(dtTotR>0?Math.round((dtTotC/dtTotR)*100):0)+'%'
+    +'\nRECENT CALLS: '+(recentCalls||'none')
+    +'\nRECENT DEALS: '+(recentDeals||'none')
+    +'\nCALL LOGS: '+(callLogs||'none')
+    +'\nPRODUCTS: Exec Elite Edge $1997(CV-000199), VIP $1997(CV-000201), Super VIP $4997, 10xBA $5988/yr or $499/mo, 10x360 $40000'
+    +'\nPEOPLE: Brandon Ducommun CSR, Brandon Dawson CEO, Natalie Dawson President, Grant Cardone Co-Founder'
+    +'\nMISSION: Close every qualified prospect 1st call. GC 6-step. Stack value before price. Anchor ROI.';
 }
 function backgroundLearn(){
   const ctx=buildContext();
@@ -1955,23 +1976,40 @@ function backgroundLearn(){
 }
 function startLearning(){
   backgroundLearn();
-  setInterval(backgroundLearn,30000); // every 30s
-  setInterval(()=>{if(S.key&&(S.dials||0)>0)genInsight();},120000); // insight every 2min
+  setInterval(backgroundLearn,25000);
+  setInterval(()=>{if(S.key)genInsight();},90000);
+  // Fire first insight after 5 seconds
+  setTimeout(()=>{if(S.key)genInsight();},5000);
 }
 
 // ═══════════════════════════════════════════════════════
 // AI API
 // ═══════════════════════════════════════════════════════
-async function callAI(msgs,sysOverride){
+async function callAI(msgs,sysOverride,maxTokens){
   const agent=AGENTS[S.activeAgent||'sales'];
   const ctx=buildContext();
-  const sys=sysOverride||(agent.persona+'\n\n'+ctx+'\n\nBe direct, tactical, and concise. Use the live context to personalize every response. When role playing stay fully in character.');
+  const sys=sysOverride||(agent.persona+'\n\n'+ctx+'\n\nYou are the BD2.0 Command Center AI — the most advanced sales intelligence system ever built for Cardone Ventures. Be direct, tactical, data-driven. Personalize every response using live context. When role playing stay fully in character. Never break character during roleplay.');
   const res=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':S.key,'anthropic-version':'2023-06-01'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:sys,messages:msgs})
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':S.key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',
+      max_tokens:maxTokens||1200,
+      system:sys,
+      messages:msgs
+    })
   });
-  if(!res.ok){const e=await res.json();throw new Error(e.error?.message||'API error');}
+  if(!res.ok){
+    const e=await res.json();
+    const msg=e.error?.message||'API error';
+    if(msg.includes('API key')) throw new Error('Invalid API key — check your key in the activation screen');
+    throw new Error(msg);
+  }
   const data=await res.json();
   return data.content[0].text;
 }
@@ -1979,23 +2017,49 @@ async function sendChat(){
   const inp=document.getElementById('cinp');
   const txt=inp.value.trim();
   if(!txt)return;
-  if(!S.key){toast('Add API key first','rd');return;}
-  inp.value='';
+  if(!S.key){
+    toast('Enter your API key first — click Activate','rd');
+    document.getElementById('ks').style.display='flex';
+    return;
+  }
+  inp.value='';inp.style.height='auto';
   addMsg('user',txt);
+  S.chatHistory=S.chatHistory||[];
   S.chatHistory.push({role:'user',content:txt});
   showTyping(true);
+  const csend=document.getElementById('csend');
+  csend.disabled=true;csend.style.opacity='0.5';
   try{
-    const reply=await callAI(S.chatHistory.slice(-20));
+    const reply=await callAI(S.chatHistory.slice(-24),null,1500);
     showTyping(false);
+    csend.disabled=false;csend.style.opacity='1';
     addMsg('ai',reply);
     S.chatHistory.push({role:'assistant',content:reply});
-    if(S.chatHistory.length%5===0)backgroundLearn();
+    if(S.chatHistory.length%3===0){backgroundLearn();}
     save();
-  }catch(e){showTyping(false);addMsg('sys','Error: '+e.message);toast('AI Error: '+e.message,'rd');}
+  }catch(e){
+    showTyping(false);
+    csend.disabled=false;csend.style.opacity='1';
+    const errMsg=e.message||'Unknown error';
+    addMsg('sys','⚠️ '+errMsg);
+    if(errMsg.includes('API key')){
+      toast('Invalid API key','rd');
+      setTimeout(()=>{document.getElementById('ks').style.display='flex';},500);
+    } else {
+      toast('AI Error: '+errMsg,'rd');
+    }
+    console.error('AI Error:',e);
+  }
 }
 function quickAsk(q){
-  goMode(4,document.querySelectorAll('.nb')[4]);
-  setTimeout(()=>{document.getElementById('cinp').value=q;sendChat();},50);
+  const nb=document.querySelectorAll('.nb');
+  goMode(4,nb[4]);
+  setTimeout(()=>{
+    const cinp=document.getElementById('cinp');
+    cinp.value=q;
+    cinp.focus();
+    sendChat();
+  },100);
 }
 function addMsg(role,txt){
   const msgs=document.getElementById('msgs');
@@ -2008,32 +2072,82 @@ function addMsg(role,txt){
   msgs.scrollTop=msgs.scrollHeight;
 }
 function showTyping(show){
-  document.getElementById('typing').style.display=show?'flex':'none';
-  if(show)document.getElementById('msgs').scrollTop=99999;
+  const t=document.getElementById('typing');
+  if(t){t.style.display=show?'flex':'none';}
+  const msgs=document.getElementById('msgs');
+  if(msgs&&show)setTimeout(()=>msgs.scrollTop=msgs.scrollHeight,50);
 }
 
 // ═══════════════════════════════════════════════════════
 // 10X BRIEFING
 // ═══════════════════════════════════════════════════════
 async function genBrief(mode){
-  if(!S.key){toast('Add API key first','rd');return;}
+  if(!S.key){
+    toast('Enter your API key first','rd');
+    document.getElementById('ks').style.display='flex';
+    return;
+  }
   goMode(5,document.querySelectorAll('.nb')[5]);
   const out=document.getElementById('brief');
-  out.textContent='⟳ Generating your briefing...';out.style.color='var(--tx3)';
+  out.innerHTML='<span style="color:var(--pu1)">⟳ Generating your personalized 10X briefing...</span>';
   const ctx=buildContext();
+  const today=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
   const prompts={
-    deep:`Generate a DEEP DIVE 10X briefing for ${new Date().toDateString()}: 1) Performance analysis with specific numbers 2) Top 3 improvement areas 3) Full script for most likely objection 4) Motivational anchor 5) Today's specific action steps. Context: ${ctx}`,
-    script:`Generate a SCRIPT FOCUS briefing: 1) Today's cold call opener (word for word) 2) Top discovery question sequence 3) Best close for today's stage. Make it ready to use immediately. Context: ${ctx}`,
-    default:`Generate a powerful 10X morning briefing for ${new Date().toDateString()}: today's mindset anchor, top 3 priorities, one key script to memorize, 10X challenge, and specific action. Energizing and tactical. Context: ${ctx}`
+    deep:`You are the 10X Intelligence Engine for BD2.0 Command Center. Generate a DEEP DIVE briefing for ${today}.
+
+Using this live data: ${ctx}
+
+Deliver:
+1. PERFORMANCE ANALYSIS — specific numbers, what's working, what needs fixing
+2. TOP 3 IMPROVEMENT AREAS — actionable, specific to today's data
+3. FULL OBJECTION SCRIPT — for the most likely objection based on recent calls
+4. POWER CLOSE — best closing sequence for current pipeline stage
+5. TODAY'S MISSION — 3 specific actions to execute before end of day
+
+Be direct, data-driven, and fire up the energy. This is game day.`,
+
+    script:`You are the BD2.0 Script Engine. Generate a SCRIPT FOCUS briefing for ${today}.
+
+Context: ${ctx}
+
+Deliver word-for-word scripts:
+1. COLD CALL OPENER — pattern interrupt, 90-second hook
+2. DISCOVERY SEQUENCE — 5 questions that uncover pain fast
+3. VALUE BRIDGE — connect pain to CV solution
+4. PRICE PRESENTATION — how to present investment confidently
+5. POWER CLOSE — assumptive close sequence for today
+
+Make every line ready to say out loud right now.`,
+
+    default:`You are the 10X Intelligence Engine for BD2.0 Command Center. Generate a powerful morning briefing for ${today}.
+
+Using live data: ${ctx}
+
+Structure:
+⚡ MINDSET ANCHOR — one powerful belief to carry all day
+🎯 TOP 3 PRIORITIES — what moves the needle most today
+📞 KEY SCRIPT — one script to memorize and use today
+🔥 10X CHALLENGE — one bold target beyond the minimum
+💡 INSIGHT FROM YOUR DATA — pattern you should know about
+🚀 FIRST ACTION — exactly what to do in the next 10 minutes
+
+Be energizing, tactical, and specific. No fluff.`
   };
   try{
-    const reply=await callAI([{role:'user',content:prompts[mode]||prompts.default}]);
-    out.textContent=reply;out.style.color='var(--tx2)';
+    const reply=await callAI([{role:'user',content:prompts[mode]||prompts.default}],null,2000);
+    out.style.color='var(--tx2)';
+    // Format with line breaks
+    out.innerHTML=reply.replace(/\n/g,'<br>').replace(/⚡|🎯|📞|🔥|💡|🚀|✅|❌|🔄/g,'<strong>$&</strong>');
     addAct('☀️','10X Briefing Generated','Now');
-    addXp(100,'Briefing Generated');
-    S.chatHistory.push({role:'assistant',content:'[BRIEFING: '+reply.substring(0,150)+'...]'});
+    dosLogXP(100,'Briefing Generated');
+    S.chatHistory=S.chatHistory||[];
+    S.chatHistory.push({role:'assistant',content:'[BRIEFING GENERATED: '+today+']'});
     backgroundLearn();
-  }catch(e){out.textContent='Error: '+e.message;out.style.color='var(--rd1)';}
+    addNotif('☀️','Briefing Ready','Your 10X briefing for '+today+' is ready');
+  }catch(e){
+    out.innerHTML='<span style="color:var(--rd1)">❌ Error: '+e.message+'</span>';
+    toast('Briefing error: '+e.message,'rd');
+  }
 }
 
 // ═══════════════════════════════════════════════════════

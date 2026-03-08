@@ -2081,10 +2081,12 @@ function addMsg(role,txt){
   const msgs=document.getElementById('msgs');
   const div=document.createElement('div');div.className='msg '+role+' fi';
   const agent=AGENTS[S.activeAgent||'sales'];
-  if(role==='ai'){div.innerHTML=`<div class="mhd">⚡ ${agent.name}</div><div class="mb">${txt.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</div>`;}
-  else if(role==='user'){div.innerHTML=`<div class="mb">${txt}</div>`;}
-  else{div.innerHTML=`<div class="mb">${txt}</div>`;}
-  msgs.insertBefore(div,document.getElementById('typing'));
+  const formatted=(txt||'').replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  if(role==='ai'){div.innerHTML='<div class="mhd">⚡ '+(agent?.name||'BD2.0 AI')+'</div><div class="mb">'+formatted+'</div>';}
+  else if(role==='user'){div.innerHTML='<div class="mb">'+formatted+'</div>';}
+  else{div.innerHTML='<div class="mb">'+formatted+'</div>';}
+  // Safe insert - append to msgs directly, never use insertBefore
+  msgs.appendChild(div);
   msgs.scrollTop=msgs.scrollHeight;
 }
 function showTyping(show){

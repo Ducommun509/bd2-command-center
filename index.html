@@ -840,7 +840,7 @@ select.inp option{background:#f0f2f8}
         </div></div></div>
       
       <!-- ═══ BD2 ALTERNATIVE SCRIPT (Tab 10 in p3) ═══ -->
-      <div class="ctp" id="ct10" style="display:none">
+      <div class="ctp" id="ct10">
 
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
           <div>
@@ -2397,9 +2397,11 @@ function goMode(n,el){
 }
 function goCT(n,el){
   document.querySelectorAll('.ct').forEach(b=>b.classList.remove('on'));
-  document.querySelectorAll('.ctp').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ctp').forEach(p=>{p.classList.remove('on');p.style.display='none';});
   el.classList.add('on');
-  document.getElementById('ct'+n).classList.add('on');
+  const target=document.getElementById('ct'+n);
+  target.classList.add('on');
+  target.style.display='block';
 }
 function setStg(n,el){
   document.querySelectorAll('#stggrid > div').forEach(b=>{b.style.background='var(--bg4)';b.style.borderColor='var(--bd)';b.style.color='var(--tx3)';});

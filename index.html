@@ -594,8 +594,8 @@ function bd2Auth(){
       BD2_AUTH.session.set(BD2_AUTH.createToken());
       document.getElementById('auth-gate').style.display='none';
       // Inject baked-in API key so users don't need their own
-      if(typeof window.apiKey!=='undefined')window.apiKey=_bd2k;
-      const inp=document.getElementById('apiKeyInput');
+      window.apiKey=_bd2k;
+      const inp=document.getElementById('kinp');
       if(inp){inp.value=_bd2k;activateKey();}
       error.textContent='';
     } else {

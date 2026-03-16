@@ -4257,7 +4257,8 @@ function renderDealList(deals){
     const stage = d.stage||d.status||d.type||'Active';
     const value = d.value||d.amount||d.revenue||'';
     const sc = stage.toLowerCase().includes('clos')?'gr':stage.toLowerCase().includes('lost')?'rd':'bl';
-    return '<div onclick="selectDeal('+i+')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--br);cursor:pointer" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background=''"><div style="flex:1"><div style="font-size:.85rem;font-weight:500">'+name+'</div><div style="font-size:.73rem;color:var(--tx3)">'+(d.description||d.subtitle||'')+'</div></div><span class="tag '+sc+'" style="font-size:.7rem">'+stage+'</span>'+(value?'<span style="font-size:.8rem;font-weight:600;color:var(--gr)">'+(typeof value==='number'?'$'+value.toLocaleString():value)+'</span>':'')+'</div>';
+    const bg2 = 'var(--bg2)';
+    return `<div onclick="selectDeal(${i})" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--br);cursor:pointer" onmouseover="this.style.background='${bg2}'" onmouseout="this.style.background=''"><div style="flex:1"><div style="font-size:.85rem;font-weight:500">${name}</div><div style="font-size:.73rem;color:var(--tx3)">${d.description||d.subtitle||''}</div></div><span class="tag ${sc}" style="font-size:.7rem">${stage}</span>${value?`<span style="font-size:.8rem;font-weight:600;color:var(--gr)">${typeof value==='number'?'$'+value.toLocaleString():value}</span>`:''}</div>`;
   }).join('');
 }
 

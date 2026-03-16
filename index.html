@@ -2454,8 +2454,10 @@ function launch(){
   setTimeout(dialerInit,600);
   setTimeout(()=>genInsight(),3000);
 }
+var _bd2k='';
 function activateKey(){
   const k=document.getElementById('kinp').value.trim();
+  _bd2k=k;
   if(!k){toast('Enter your Anthropic API key','rd');return;}
   if(!k.startsWith('sk-ant-')){toast('Key should start with sk-ant-','rd');return;}
   S.key=k;

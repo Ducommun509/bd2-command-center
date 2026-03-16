@@ -612,7 +612,6 @@ select.inp option{background:#f0f2f8}
     <div id="panels">
 
       <!-- ═══ P0: DASHBOARD ═══ -->
-      
       <div class="panel on" id="p0">
         <div class="sgrid">
           <div class="sc bl"><div class="iw sm bl">📞</div><div class="sv bl" id="d-calls">0</div><div class="sl">Calls Today</div><div class="sbar"><div class="sfill bl" id="d-cb" style="width:0%"></div></div></div>
@@ -662,7 +661,6 @@ select.inp option{background:#f0f2f8}
       </div>
 
       <!-- ═══ P1: DEAL BUILDER ═══ -->
-
       <div class="panel" id="p1">
         <div class="col2" style="gap:14px;margin-bottom:14px">
           <div class="sec g">
@@ -697,7 +695,6 @@ select.inp option{background:#f0f2f8}
       </div>
 
       <!-- ═══ P2: CALL TRACKER ═══ -->
-
       <div class="panel" id="p2">
         <div class="sgrid" style="grid-template-columns:repeat(auto-fit,minmax(100px,1fr))">
           <div class="sc bl"><div class="sv bl" id="sc-d">0</div><div class="sl">Dials</div></div>
@@ -732,7 +729,6 @@ select.inp option{background:#f0f2f8}
       </div>
 
       <!-- ═══ P3: 1 CALL CLOSER ═══ -->
-
       <div class="panel" id="p3">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
           <div>
@@ -1250,7 +1246,6 @@ select.inp option{background:#f0f2f8}
 
       </div>
       <!-- ═══ P4: AI BRAIN ═══ -->
-
       <div class="panel" id="p4"><div id="ai-inner">
         <div id="aihd">
           <div class="iw sm pu">🤖</div>
@@ -1298,7 +1293,6 @@ select.inp option{background:#f0f2f8}
 
       </div><!-- /ai-inner -->
       <!-- ═══ P5: 10X BRIEFING ═══ -->
-
       <div class="panel" id="p5">
         <div class="sec g" style="margin-bottom:14px">
           <div class="sec-hd"><div class="iw sm go">☀️</div><span class="ttl">Daily 10X Briefing</span><span class="tag pu" style="margin-left:auto">AI Powered</span></div>
@@ -1318,7 +1312,6 @@ select.inp option{background:#f0f2f8}
       </div>
 
       <!-- ═══ P6: WORKFLOW BUILDER ═══ -->
-
       <div class="panel" id="p6">
         <div class="wf-header">
           <div>
@@ -1331,7 +1324,6 @@ select.inp option{background:#f0f2f8}
       </div>
 
       <!-- ═══ P7: KNOWLEDGE GRAPH ═══ -->
-
       <div class="panel" id="p7">
         <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:4px">Knowledge Graph</div>
         <div style="font-size:.72rem;color:var(--tx3);margin-bottom:14px">Your personal intelligence database — automatically tagged, instantly retrieved</div>
@@ -1340,7 +1332,6 @@ select.inp option{background:#f0f2f8}
       </div>
 
       <!-- ═══ P8: AGENTS ═══ -->
-
       <div class="panel" id="p8">
         <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:4px">AI Agent Network</div>
         <div style="font-size:.72rem;color:var(--tx3);margin-bottom:14px">Specialized agents coordinating under your central AI — each optimized for a domain</div>
@@ -1348,7 +1339,6 @@ select.inp option{background:#f0f2f8}
       </div>
 
       <!-- ═══ P9: ANALYTICS ═══ -->
-
       <div class="panel" id="p9">
         <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.05rem;margin-bottom:14px">Performance Analytics</div>
         <div class="sgrid" style="margin-bottom:14px">
@@ -1397,7 +1387,6 @@ select.inp option{background:#f0f2f8}
 
 
       <!-- P10: DATA OS -->
-
       <div class="panel" id="p10">
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;flex-wrap:wrap;gap:8px">
           <div>
@@ -1627,7 +1616,6 @@ select.inp option{background:#f0f2f8}
 
 
       <!-- P11: DIALER.IO INTEGRATION -->
-
       <div class="panel" id="p11">
 
         <!-- Hero -->
@@ -3760,201 +3748,135 @@ function exportScorecard() {
   const rows=S.scorecard||[];
   let csv='Date,Agent,Dials,HU in Greeting,Fact Find,Presentation,Reco/Wallboard,Pitched,POS Sent,Closed,Referrals,Duration,Contact Rate,Close Rate,Campaign,Disposition\n';
   rows.forEach(r=>{
-</div>
-                <div><div class="lbl">Dial Attempts</div><input class="inp" id="sc-dials" type="number" min="0" placeholder="0" oninput="scCalc()"/></div>
-                <div><div class="lbl">Avg Call Duration</div><input class="inp" id="sc-dur" placeholder="e.g. 2:34"/></div>
-              </div>
-              <!-- Call Stage Checklist -->
-              <div style="margin-bottom:12px">
-                <div class="lbl" style="margin-bottom:8px">Call Stage Tracking</div>
-                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px" id="stage-checks">
-                  <div class="gi" onclick="togSC(this,'greeting')" id="sc-greeting"><div class="gcb"></div><span class="gtx">🤝 Greeting</span></div>
-                  <div class="gi" onclick="togSC(this,'hu')" id="sc-hu"><div class="gcb"></div><span class="gtx">📞 HU in Greeting</span></div>
-                  <div class="gi" onclick="togSC(this,'factfind')" id="sc-factfind"><div class="gcb"></div><span class="gtx">🔍 Fact Find</span></div>
-                  <div class="gi" onclick="togSC(this,'presentation')" id="sc-pres"><div class="gcb"></div><span class="gtx">🎯 Presentation</span></div>
-                  <div class="gi" onclick="togSC(this,'reco')" id="sc-reco"><div class="gcb"></div><span class="gtx">📋 Reco / Wallboard</span></div>
-                  <div class="gi" onclick="togSC(this,'pitched')" id="sc-pitched"><div class="gcb"></div><span class="gtx">💬 Pitched</span></div>
-                  <div class="gi" onclick="togSC(this,'pos')" id="sc-pos"><div class="gcb"></div><span class="gtx">📄 POS Sent</span></div>
-                  <div class="gi" onclick="togSC(this,'closed')" id="sc-closedchk"><div class="gcb"></div><span class="gtx">✅ Closed</span></div>
-                  <div class="gi" onclick="togSC(this,'referral')" id="sc-ref"><div class="gcb"></div><span class="gtx">🔗 Referrals</span></div>
-                </div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
-                <div><div class="lbl">Reco's 🎯</div><input class="inp" id="sc-recos" type="number" min="0" placeholder="0" oninput="scCalc()"/></div>
-                <div><div class="lbl">Deals Closed ✅</div><input class="inp" id="sc-cls" type="number" min="0" placeholder="0" oninput="scCalc()"/></div>
-                <div><div class="lbl">Referrals</div><input class="inp" id="sc-refs" type="number" min="0" placeholder="0"/></div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-                <div><div class="lbl">Disposition</div>
-                  <div class="tog">
-                    <div class="tb gr" onclick="setSCDisp('CLOSED',this)">✅ Closed</div>
-                    <div class="tb bl" onclick="setSCDisp('FOLLOW UP',this)">🔄 Follow Up</div>
-                    <div class="tb rd" onclick="setSCDisp('NO SALE',this)">❌ No Sale</div>
-                  </div>
-                </div>
-                <div><div class="lbl">Campaign / Number Pool</div><input class="inp" id="sc-campaign" placeholder="Campaign name or number pool"/></div>
-              </div>
-              <div style="margin-bottom:10px"><div class="lbl">Notes</div><textarea class="inp" id="sc-notes" rows="2" style="resize:none" placeholder="Key insights, objections, what worked..."></textarea></div>
-              <div class="row" style="gap:8px">
-                <button class="btn pu" onclick="saveScorecardRow()">💾 Save to Scorecard +100 XP</button>
-                <div style="background:var(--bg3);border:1px solid var(--bd);border-radius:var(--r2);padding:9px 14px;font-size:.8rem;color:var(--tx2)" id="sc-preview">Contact Rate: —  |  Close Rate: —</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 2: NUMBER HEALTH -->
-        <div class="dos-panel" id="dt2">
-          <div class="sec g">
-            <div class="sec-hd"><div class="iw sm te">📱</div><span class="ttl">SMART Number Pool — 59 Smartphones</span><span class="sub">Dialer.io rotates daily for spam-free dialing</span></div>
-            <div class="sec-bd">
-              <div style="font-size:.8rem;color:var(--tx2);margin-bottom:12px;line-height:1.7;background:var(--bl-bg);border:1px solid var(--bl-b);border-radius:var(--r2);padding:12px">
-                <strong>How Dialer.io SMART Dialing Works:</strong> Your 59 smartphones rotate daily as outbound number pools. Each number is registered with telcos as a trusted partner, preventing "Scam Likely" flags. The system automatically retires numbers showing health degradation and rotates in fresh ones — achieving <strong>15-30% pickup rates</strong> vs industry standard 2-5%.
-              </div>
-              <div class="num-grid" id="num-grid"></div>
-            </div>
-          </div>
-          <div class="sec g" style="margin-top:14px">
-            <div class="sec-hd"><div class="iw sm go">📊</div><span class="ttl">Number Performance</span></div>
-            <div class="sec-bd">
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px">
-                <div class="card"><div class="lbl">Active Numbers</div><div class="val" style="background:var(--gr-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="num-active">—</div></div>
-                <div class="card"><div class="lbl">Rotating Today</div><div class="val" style="background:var(--bl-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="num-rotating">—</div></div>
-                <div class="card"><div class="lbl">Avg Health Score</div><div class="val" style="background:var(--go-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="num-avghealth">—</div></div>
-                <div class="card"><div class="lbl">Flagged / Resting</div><div class="val" style="background:var(--rd-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="num-flagged">—</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 3: WEBHOOK SETUP -->
-        <div class="dos-panel" id="dt3">
-          <div class="sec g" id="dialer-setup" style="margin-bottom:14px">
-            <div class="sec-hd"><div class="iw sm bl">🔗</div><span class="ttl">Dialer.io Webhook Configuration</span></div>
-            <div class="sec-bd">
-              <div style="margin-bottom:12px">
-                <div class="lbl">Your Webhook Endpoint (copy this into Dialer.io)</div>
-                <div style="display:flex;gap:8px;align-items:center">
-                  <div class="inp" id="webhook-url" style="font-family:monospace;font-size:.78rem;color:var(--te1);background:var(--bg3)">https://ducommun509.github.io/bd2-command-center/?webhook=1</div>
-                  <button class="btn ghost sm" onclick="copyWebhook()">📋 Copy</button>
-                </div>
-                <div style="font-size:.72rem;color:var(--tx3);margin-top:5px">⚠️ GitHub Pages doesn't accept POST requests. See SMS method below for the real integration path.</div>
-              </div>
-              <div class="dv"></div>
-              <!-- SMS METHOD (Primary) -->
-              <div style="margin-bottom:14px">
-                <div class="lbl" style="margin-bottom:8px">📱 SMS Integration via 59 Smartphones (Recommended)</div>
-                <div style="font-size:.8rem;color:var(--tx2);margin-bottom:10px;line-height:1.6">
-                  Since Dialer.io rotates your 59 phones, configure each phone to send a disposition SMS to a central number after each call. The Command Center parses these SMS messages automatically.
-                </div>
-                <div class="sms-format">
-                  <div class="lbl" style="margin-bottom:6px">SMS Format — Agent texts after each call:</div>
-                  <div class="cmd">CLOSED [prospect] [product] [duration]</div><div class="desc">e.g. CLOSED "John Smith" "Elite Edge" 4:32</div>
-                  <div style="margin-top:6px"><div class="cmd">FU [prospect] [product] [duration]</div><div class="desc">e.g. FU "Jane Doe" "10xBA" 2:15</div></div>
-                  <div style="margin-top:6px"><div class="cmd">NS [prospect] [duration]</div><div class="desc">e.g. NS "Bob Jones" 1:05</div></div>
-                  <div style="margin-top:6px"><div class="cmd">RECO [count] [campaign]</div><div class="desc">e.g. RECO 9 "CV Jan Campaign"</div></div>
-                </div>
-              </div>
-              <!-- MANUAL WEBHOOK RECEIVER -->
-              <div style="margin-bottom:14px">
-                <div class="lbl" style="margin-bottom:8px">Paste Dialer.io Webhook Payload (Manual Sync)</div>
-                <textarea class="inp" id="webhook-paste" rows="6" style="font-family:monospace;font-size:.75rem;resize:none" placeholder='Paste JSON from Dialer.io webhook here:
-{
-  "agent": "Brandon D",
-  "dials": 45,
-  "pickups": 12,
-  "recos": 9,
-  "closed": 2,
-  "duration_avg": "3:24",
-  "campaign": "CV January",
-  "date": "2026-01-12"
-}'></textarea>
-                <button class="btn bl sm" style="margin-top:8px" onclick="parseWebhookPaste()">⚡ Parse & Import to Scorecard</button>
-              </div>
-              <!-- ZAPIER/MAKE INSTRUCTIONS -->
-              <div>
-                <div class="lbl" style="margin-bottom:8px">🔄 Zapier / Make.com Bridge (Alloware)</div>
-                <div class="webhook-box">STEP 1: Dialer.io → Zapier Webhook trigger
-STEP 2: Zapier formats data as SMS or API call  
-STEP 3: POST to: https://your-alloware-endpoint.com/bd2
-STEP 4: Alloware forwards to BD2.0 Command Center
-STEP 5: Scorecard auto-updates + AI learns from new data
-
-Fields to map:
-  agent_name    → sc-agent
-  dial_attempts → sc-dials  
-  pickups       → ds-pickups
-  recos         → sc-recos
-  closed        → sc-cls
-  avg_duration  → sc-dur
-  campaign      → sc-campaign
-  date          → sc-date</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- TAB 4: ANALYTICS -->
-        <div class="dos-panel" id="dt4">
-          <div class="sec g" style="margin-bottom:14px">
-            <div class="sec-hd"><div class="iw sm pu">📈</div><span class="ttl">Scorecard Analytics</span><span class="sub" id="sc-analytics-date">All time</span></div>
-            <div class="sec-bd" id="sc-analytics">
-              <div style="color:var(--tx3);font-size:.82rem">Log calls to unlock analytics...</div>
-            </div>
-          </div>
-          <div class="sec g">
-            <div class="sec-hd"><div class="iw sm go">🏆</div><span class="ttl">Stage Conversion Funnel</span></div>
-            <div class="sec-bd" id="sc-funnel">
-              <div style="color:var(--tx3);font-size:.82rem">Log calls to see your conversion funnel...</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /panels -->
-  </div><!-- /body -->
-</div><!-- /app -->
-
-<!-- SCOREBOARD -->
-<div id="sb">
-  <div class="sb-card">
-    <button class="sb-x" onclick="document.getElementById('sb').classList.remove('show')">✕</button>
-    <div class="sb-h">Today's Scoreboard</div>
-    <div class="sb-big" id="sb-main">0</div>
-    <div style="font-size:.7rem;color:var(--tx3);margin-top:3px">CALLS TODAY</div>
-    <div class="sb-row">
-      <div class="sb-item"><div class="sb-n" style="background:var(--gr-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="sb-cl">0</div><div class="sb-l">Closed</div></div>
-      <div class="sb-item"><div class="sb-n" style="background:var(--pu-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="sb-rev">$0</div><div class="sb-l">Revenue</div></div>
-      <div class="sb-item"><div class="sb-n" style="background:var(--go-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text" id="sb-rt">0%</div><div class="sb-l">Close Rate</div></div>
-    </div>
-  </div>
-</div>
-
-<!-- NOTIFICATION PANEL -->
-<div id="notif-badge">
-  <div class="nf-hd"><span class="nf-ttl">Notifications</span><button class="nf-x" onclick="toggleNotif()">✕</button></div>
-  <div id="notif-list"></div>
-</div>
-
-<!-- LIVE STATS WIDGET -->
-<div id="ssw">
-  <div id="sshd">
-    <div class="iw sm bl" style="width:26px;height:26px;border-radius:7px;font-size:.78rem">📊</div>
-    <span id="sst">Live Stats</span>
-    <button id="ssmin" onclick="toggleSS()">—</button>
-  </div>
-  <div id="ssbd">
-    <div id="ssbars"><div class="ssb" style="height:20px"></div><div class="ssb" style="height:35px"></div><div class="ssb" style="height:28px"></div><div class="ssb" style="height:48px"></div><div class="ssb" style="height:22px"></div><div class="ssb" style="height:40px"></div><div class="ssb" style="height:15px"></div></div>
-    <div id="sstats">
-      <div class="sss"><div class="ssn" id="ss-d">0</div><div class="ssl">Dials</div></div>
-      <div class="sss"><div class="ssn" id="ss-cl">0</div><div class="ssl">Closed</div></div>
-      <div class="sss"><div class="ssn" id="ss-rev">$0</div><div class="ssl">Rev</div></div>
-    </div>
-  </div>
-</div>
-
-<div id="toast"></div>
+    const s=r.stages||{};
+    const cr=r.dials>0?Math.round(((r.recos||0)/r.dials)*100)+'%':'—';
+    const clr=r.recos>0?Math.round(((r.closed||0)/r.recos)*100)+'%':'—';
+    csv+=`${r.date},${r.agent},${r.dials||0},${s.hu?'Y':'N'},${s.factfind?'Y':'N'},${s.presentation?'Y':'N'},${s.reco?'Y':'N'},${s.pitched?'Y':'N'},${s.pos?'Y':'N'},${r.closed||0},${r.referrals||0},${r.duration||''},${cr},${clr},"${r.campaign||''}",${r.disposition||''}\n`;
+  });
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='BD2_Scorecard_'+new Date().toISOString().split('T')[0]+'.csv';
+  a.click();
+  toast('📥 Scorecard exported!','gr');
+}
 
 
+// ═══════════════════════════════════════════════════════
+// API KEY TESTER
+// ═══════════════════════════════════════════════════════
+async function testKey(){
+  const k=document.getElementById('kinp').value.trim();
+  if(!k){toast('Enter your key first','rd');return;}
+  const btn=event.target;
+  btn.textContent='Testing...';btn.disabled=true;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':k,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:50,
+        messages:[{role:'user',content:'Say: BD2 AI Online'}]
+      })
+    });
+    const data=await res.json();
+    if(data.content&&data.content[0]){
+      btn.textContent='✅ Key Works! Click Activate';
+      btn.style.background='var(--gr-g)';btn.style.color='#fff';
+      btn.disabled=false;
+    } else if(data.error){
+      btn.textContent='❌ '+data.error.message;
+      btn.style.color='var(--rd1)';btn.disabled=false;
+    }
+  }catch(e){
+    btn.textContent='❌ Error: '+e.message;
+    btn.style.color='var(--rd1)';btn.disabled=false;
+    console.error('Key test error:',e);
+  }
+}
+
+async function testAIConnection(){
+  if(!S.key){toast('No API key — re-activate','rd');document.getElementById('ks').style.display='flex';return;}
+  toast('Testing AI connection...','bl');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-api-key':S.key,
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:30,
+        messages:[{role:'user',content:'Reply with exactly: BD2 AI ONLINE'}]
+      })
+    });
+    const data=await res.json();
+    if(data.content&&data.content[0]){
+      const reply=data.content[0].text;
+      toast('✅ AI Connected: '+reply,'gr');
+      addMsg('sys','✅ AI Connection Confirmed — '+reply);
+      document.getElementById('aist').style.background='var(--gr1)';
+      document.getElementById('lrn').textContent='✅ AI Online';
+    } else {
+      const err=data.error?.message||'Unknown error';
+      toast('❌ AI Error: '+err,'rd');
+      addMsg('sys','❌ Connection Failed: '+err);
+      if(err.includes('API key')||err.includes('auth')){
+        setTimeout(()=>{document.getElementById('ks').style.display='flex';},1000);
+      }
+    }
+  }catch(e){
+    toast('❌ Network Error: '+e.message,'rd');
+    addMsg('sys','❌ Network Error: '+e.message+' — Check browser console (F12)');
+    console.error('AI test failed:',e);
+  }
+}
+</script>
+<script id="bd2-auth">
+const BD2_AUTH={
+  pw:btoa('BD2sAwesomeA.I.2026'),
+  endpoints:{login:null,verify:null,refresh:null},
+  session:{
+    set(t){localStorage.setItem('bd2_sess',t)},
+    get(){return localStorage.getItem('bd2_sess')},
+    isValid(){
+      const s=this.get();if(!s)return false;
+      try{const d=JSON.parse(atob(s));return d.exp>Date.now();}catch{return false;}
+    }
+  },
+  createToken(){return btoa(JSON.stringify({user:'bd2_user',exp:Date.now()+86400000}));}
+};
+(function(){
+  if(BD2_AUTH.session.isValid()){document.getElementById('auth-gate').style.display='none';return;}
+  document.getElementById('auth-input').addEventListener('keydown',e=>{if(e.key==='Enter')bd2Auth();});
+})();
+function bd2Auth(){
+  const input=document.getElementById('auth-input').value;
+  const error=document.getElementById('auth-error');
+  const btn=document.getElementById('auth-btn');
+  btn.textContent='Verifying...';btn.disabled=true;
+  setTimeout(()=>{
+    if(btoa(input)===BD2_AUTH.pw){
+      BD2_AUTH.session.set(BD2_AUTH.createToken());
+      localStorage.setItem('bd2_apikey', _bd2k);
+      document.getElementById('auth-gate').style.display='none';
+      location.reload();
+    } else {
+      error.textContent='Incorrect password. Try again.';
+      document.getElementById('auth-input').value='';
+      document.getElementById('auth-input').focus();
+    }
+    btn.textContent='Access System';btn.disabled=false;
+  },400);
+}
+</script>
 </body>
 </html>

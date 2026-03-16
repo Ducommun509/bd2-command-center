@@ -3866,7 +3866,7 @@ function bd2Auth(){
   setTimeout(()=>{
     if(btoa(input)===BD2_AUTH.pw){
       BD2_AUTH.session.set(BD2_AUTH.createToken());
-      localStorage.setItem('bd2_apikey', _bd2k);
+      localStorage.setItem('bd2_apikey', document.getElementById('kinp') ? document.getElementById('kinp').value : '');
       document.getElementById('auth-gate').style.display='none';
       location.reload();
     } else {

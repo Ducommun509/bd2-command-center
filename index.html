@@ -2728,7 +2728,7 @@ const KG_DEFAULT=[
 // STORAGE
 // ═══════════════════════════════════════════════════════
 function save(){try{const d={...S};d.chatHistory=d.chatHistory.slice(-50);localStorage.setItem('bd2_v2',JSON.stringify(d))}catch(e){}}
-function load(){try{const d=JSON.parse(localStorage.getItem('bd2_v2')||'{}');if(d.key)Object.assign(S,d);S.chatHistory=S.chatHistory||[];S.learningCtx=S.learningCtx||{};S.notifs=S.notifs||[];S.workflows=S.workflows||WORKFLOWS_DEFAULT;S.knowledge=S.knowledge||KG_DEFAULT;}catch(e){S.workflows=WORKFLOWS_DEFAULT;S.knowledge=KG_DEFAULT;}
+function load(){try{const d=JSON.parse(localStorage.getItem('bd2_v2')||'{}');if(Object.keys(d).length>0)Object.assign(S,d);S.chatHistory=S.chatHistory||[];S.learningCtx=S.learningCtx||{};S.notifs=S.notifs||[];S.workflows=S.workflows||WORKFLOWS_DEFAULT;S.knowledge=S.knowledge||KG_DEFAULT;}catch(e){S.workflows=WORKFLOWS_DEFAULT;S.knowledge=KG_DEFAULT;}
   // Restore key from backup if missing
   if(!S.key){try{const b=localStorage.getItem('bd2_apikey');if(b)S.key=b;}catch(e){}}
 }
@@ -4160,7 +4160,7 @@ function bd2Auth(){
   setTimeout(()=>{
     if(btoa(input)===BD2_AUTH.pw){
       BD2_AUTH.session.set(BD2_AUTH.createToken());
-      localStorage.setItem('bd2_apikey', document.getElementById('kinp') ? document.getElementById('kinp').value : '');
+      const kinpVal=document.getElementById('kinp')?document.getElementById('kinp').value.trim():'';if(kinpVal){localStorage.setItem('bd2_apikey',kinpVal);}
       document.getElementById('auth-gate').style.display='none';
       location.reload();
     } else {

@@ -4171,6 +4171,133 @@ function bd2Auth(){
     btn.textContent='Access System';btn.disabled=false;
   },400);
 }
+
+// ═══════════════════════════════════════════════════════
+// HUB CONNECTION (Deal Builder)
+// ═══════════════════════════════════════════════════════
+const HUB_API = 'https://tenxhub-api-prod-westus2-func-hwf6a7e8f4hdcdg5.westus2-01.azurewebsites.net/api';
+let hubToken = '';
+let allDeals = [];
+let selectedDeal = null;
+
+function showHubInstructions(){
+  const el = document.getElementById('hub-instructions');
+  if(el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function saveHubToken(){
+  const inp = document.getElementById('hub-token-input');
+  const t = inp ? inp.value.trim() : '';
+  if(!t){ toast('Paste your Hub token first','rd'); return; }
+  hubToken = t;
+  try{ localStorage.setItem('hub_access_token', t); }catch(e){}
+  connectHub();
+}
+
+function connectHub(){
+  if(!hubToken){
+    try{ hubToken = localStorage.getItem('hub_access_token') || ''; }catch(e){}
+  }
+  if(!hubToken){ toast('Enter your Hub token first','rd'); return; }
+  const status = document.getElementById('hub-status');
+  if(status) status.textContent = 'Connecting to 10X Hub...';
+  loadHubData();
+}
+
+async function loadHubData(){
+  try{
+    const userRes = await fetch(HUB_API+'/users/current', {
+      headers:{'Authorization':'Bearer '+hubToken,'Content-Type':'application/json'}
+    });
+    if(!userRes.ok) throw new Error('Auth failed: '+userRes.status);
+    const user = await userRes.json();
+    const status = document.getElementById('hub-status');
+    if(status) status.textContent = 'Connected as '+(user.firstName||user.email||'Hub User');
+    const auth = document.getElementById('hub-auth-section');
+    if(auth) auth.style.display = 'none';
+    const conn = document.getElementById('hub-connected-section');
+    if(conn) conn.style.display = 'block';
+    const btn = document.getElementById('hub-refresh-btn');
+    if(btn) btn.style.display = 'block';
+    loadHubDeals(user.id||user.userId);
+  }catch(err){
+    const status = document.getElementById('hub-status');
+    if(status) status.textContent = 'Connection failed: '+err.message;
+    toast('Hub connection failed — check your token','rd');
+  }
+}
+
+async function loadHubDeals(userId){
+  try{
+    const res = await fetch(HUB_API+'/users/'+userId+'/dashboards', {
+      headers:{'Authorization':'Bearer '+hubToken}
+    });
+    const data = await res.json();
+    renderHubData(data, []);
+  }catch(err){
+    const dl = document.getElementById('deals-list');
+    if(dl) dl.innerHTML = '<div style="color:var(--rd);font-size:.8rem;padding:10px">Error: '+err.message+'</div>';
+  }
+}
+
+function renderHubData(dashboards, lp){
+  const items = Array.isArray(dashboards) ? dashboards : (dashboards.items||dashboards.data||[]);
+  const sd = document.getElementById('stat-deals');
+  if(sd) sd.textContent = items.length||'0';
+  allDeals = items;
+  renderDealList(items);
+}
+
+function renderDealList(deals){
+  const list = document.getElementById('deals-list');
+  if(!list) return;
+  if(!deals.length){ list.innerHTML='<div style="color:var(--tx3);font-size:.8rem;text-align:center;padding:20px">No deals found</div>'; return; }
+  list.innerHTML = deals.map((d,i) => {
+    const name = d.name||d.title||d.clientName||'Deal '+(i+1);
+    const stage = d.stage||d.status||d.type||'Active';
+    const value = d.value||d.amount||d.revenue||'';
+    const sc = stage.toLowerCase().includes('clos')?'gr':stage.toLowerCase().includes('lost')?'rd':'bl';
+    return '<div onclick="selectDeal('+i+')" style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--br);cursor:pointer" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background=''"><div style="flex:1"><div style="font-size:.85rem;font-weight:500">'+name+'</div><div style="font-size:.73rem;color:var(--tx3)">'+(d.description||d.subtitle||'')+'</div></div><span class="tag '+sc+'" style="font-size:.7rem">'+stage+'</span>'+(value?'<span style="font-size:.8rem;font-weight:600;color:var(--gr)">'+(typeof value==='number'?'$'+value.toLocaleString():value)+'</span>':'')+'</div>';
+  }).join('');
+}
+
+function filterDeals(q){
+  if(!q){renderDealList(allDeals);return;}
+  q=q.toLowerCase();
+  renderDealList(allDeals.filter(d=>(d.name||'').toLowerCase().includes(q)||(d.title||'').toLowerCase().includes(q)));
+}
+
+function selectDeal(i){
+  selectedDeal=allDeals[i];
+  const d=selectedDeal;
+  const t=document.getElementById('detail-title');
+  if(t) t.textContent=d.name||d.title||'Deal Details';
+  const da=document.getElementById('deal-actions');
+  if(da) da.style.display='flex';
+  const dc=document.getElementById('deal-detail-content');
+  if(dc) dc.innerHTML='<table style="width:100%;font-size:.82rem">'+Object.entries(d).filter(([k,v])=>v&&typeof v!=='object').map(([k,v])=>'<tr><td style="color:var(--tx3);padding:4px 0;width:40%">'+k+'</td><td style="padding:4px 0;font-weight:500">'+v+'</td></tr>').join('')+'</table>';
+}
+
+function refreshHubDeals(){loadHubData();}
+function toggleNewDeal(){const f=document.getElementById('new-deal-form');if(f)f.style.display=f.style.display==='none'?'block':'none';}
+
+async function runAIOnDeal(){
+  if(!selectedDeal){toast('Select a deal first','rd');return;}
+  if(!S.key){toast('No API key','rd');return;}
+  const out=document.getElementById('deal-ai-output');
+  const content=document.getElementById('deal-ai-content');
+  if(out) out.style.display='block';
+  if(content) content.textContent='Analyzing deal...';
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':S.key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:'You are a Cardone Ventures sales expert. Analyze this deal: 1) Health assessment 2) Next best action 3) Objection risks 4) Close probability 5) Recommended CV product.\n\n'+JSON.stringify(selectedDeal,null,2)}]})});
+    const data=await res.json();
+    if(content) content.textContent=data.content?.[0]?.text||'No response';
+  }catch(err){if(content) content.textContent='Error: '+err.message;}
+}
+
+// Auto-connect on load
+(function(){try{const s=localStorage.getItem('hub_access_token');if(s){hubToken=s;setTimeout(connectHub,800);}}catch(e){}})();
+
 </script>
 </body>
 </html>

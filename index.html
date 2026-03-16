@@ -664,39 +664,127 @@ select.inp option{background:#f0f2f8}
       <!-- ═══ P1: DEAL BUILDER ═══ -->
 
       <div class="panel" id="p1">
-        <div class="col2" style="gap:14px;margin-bottom:14px">
-          <div class="sec g">
-            <div class="sec-hd"><div class="iw sm pu">👤</div><span class="ttl">Client Details</span></div>
-            <div class="sec-bd">
-              <div style="margin-bottom:9px"><div class="lbl">Client Name</div><input class="inp" id="ic" placeholder="Full name"/></div>
-              <div style="margin-bottom:9px"><div class="lbl">Close Date</div><input class="inp" id="idate" type="date"/></div>
-              <div class="col2" style="gap:9px;margin-bottom:9px">
-                <div><div class="lbl">Role</div><div class="tog"><div class="tb on" id="br1" onclick="setR('D1')">D1</div><div class="tb" id="br2" onclick="setR('D2')">D2</div></div></div>
-                <div><div class="lbl">Type</div><div class="tog"><div class="tb on" id="bs1" onclick="setDT('Solo')">Solo</div><div class="tb" id="bs2" onclick="setDT('Split')">Split</div></div></div>
-              </div>
-              <div id="d2w" style="display:none;margin-bottom:9px"><div class="lbl">D2 Partner</div><input class="inp" id="id2" placeholder="Name"/></div>
-              <div><div class="lbl">Custom Price</div><input class="inp" id="icp" type="number" placeholder="Override price" oninput="upPrev()"/></div>
-            </div>
-          </div>
-          <div id="prevbox" class="sec g">
-            <div class="sec-hd"><div class="iw sm gr">📄</div><span class="ttl">Invoice Preview</span></div>
-            <div class="sec-bd">
-              <div id="pvlines"><div style="color:var(--tx3);font-size:.8rem">Select a product below</div></div>
-              <div id="pvtot" style="display:none" class="ptot"><span>TOTAL</span><span class="am" id="pvamt">$0</span></div>
-            </div>
-            <div style="padding:0 16px 14px;display:flex;gap:7px">
-              <button class="btn gr" onclick="saveDeal()">💾 Save +500 XP</button>
-              <button class="btn ghost sm" onclick="showSB()">🏆</button>
-            </div>
-          </div>
+
+  <!-- Header -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="iw sm bl">💼</div>
+      <div>
+        <div style="font-weight:600;font-size:1rem">Deal Builder</div>
+        <div style="font-size:.75rem;color:var(--tx3)" id="hub-status">Not connected to 10X Hub</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:7px">
+      <button class="btn ghost sm" onclick="connectHub()" id="hub-connect-btn">🔗 Connect Hub</button>
+      <button class="btn ghost sm" onclick="refreshHubDeals()" id="hub-refresh-btn" style="display:none">🔄 Refresh</button>
+    </div>
+  </div>
+
+  <!-- Hub Token Input (shown until connected) -->
+  <div id="hub-auth-section" class="sec g" style="margin-bottom:14px">
+    <div class="sec-hd"><div class="iw sm am">🔑</div><span class="ttl">10X Hub Connection</span></div>
+    <div class="sec-bd">
+      <div style="font-size:.8rem;color:var(--tx3);margin-bottom:10px">
+        You're logged into hub.cardoneventures.com. Open the Hub in another tab, open DevTools (Cmd+Option+I) → Application → Local Storage → hub.cardoneventures.com → copy the value of <code style="background:var(--bg2);padding:2px 5px;border-radius:4px">@@auth0spajs@@</code> token and paste it below.
+      </div>
+      <div style="margin-bottom:9px">
+        <div class="lbl">Auth Token (from Hub localStorage)</div>
+        <input class="inp" id="hub-token-input" type="password" placeholder="Paste Auth0 access token..."/>
+      </div>
+      <div style="display:flex;gap:7px">
+        <button class="btn bl" onclick="saveHubToken()">💾 Save & Connect</button>
+        <button class="btn ghost sm" onclick="showHubInstructions()">❓ How to get token</button>
+      </div>
+      <div id="hub-instructions" style="display:none;margin-top:10px;font-size:.78rem;color:var(--tx3);background:var(--bg2);padding:10px;border-radius:8px;line-height:1.6">
+        <strong>Steps to get your Hub token:</strong><br>
+        1. Open <a href="https://hub.cardoneventures.com" target="_blank" style="color:var(--bl)">hub.cardoneventures.com</a> in a new tab<br>
+        2. Press <strong>Cmd+Option+I</strong> to open DevTools<br>
+        3. Click <strong>Application</strong> tab → <strong>Local Storage</strong> → <strong>hub.cardoneventures.com</strong><br>
+        4. Find the key starting with <strong>@@auth0spajs@@</strong><br>
+        5. Click it, expand the value, find <strong>"access_token"</strong><br>
+        6. Copy that token and paste it above
+      </div>
+    </div>
+  </div>
+
+  <!-- Connected State — Deal Data -->
+  <div id="hub-connected-section" style="display:none">
+
+    <!-- Stats Row -->
+    <div class="sgrid" style="grid-template-columns:repeat(auto-fit,minmax(110px,1fr));margin-bottom:14px" id="hub-stats">
+      <div class="sc bl"><div class="iw sm bl">📊</div><div class="sv" id="stat-deals">—</div><div class="sl">Active Deals</div></div>
+      <div class="sc gr"><div class="iw sm gr">💰</div><div class="sv" id="stat-revenue">—</div><div class="sl">Pipeline Value</div></div>
+      <div class="sc am"><div class="iw sm am">🎯</div><div class="sv" id="stat-closing">—</div><div class="sl">Closing Soon</div></div>
+      <div class="sc pu"><div class="iw sm pu">👤</div><div class="sv" id="stat-contacts">—</div><div class="sl">Contacts</div></div>
+    </div>
+
+    <div class="col2" style="gap:14px;margin-bottom:14px">
+
+      <!-- Deal List -->
+      <div class="sec g">
+        <div class="sec-hd">
+          <div class="iw sm bl">📋</div>
+          <span class="ttl">Live Deals</span>
+          <input class="inp" style="margin-left:auto;width:140px;font-size:.75rem;padding:4px 8px" placeholder="Search deals..." oninput="filterDeals(this.value)" id="deal-search"/>
         </div>
-        <div class="sec g">
-          <div class="sec-hd"><div class="iw sm bl">💼</div><span class="ttl">CV Product Catalog</span><span class="tag bl" style="margin-left:auto">10 Products</span></div>
-          <div class="sec-bd"><div class="pgrid" id="pgrid"></div></div>
+        <div class="sec-bd" id="deals-list" style="max-height:340px;overflow-y:auto">
+          <div style="color:var(--tx3);font-size:.8rem;text-align:center;padding:20px">Loading deals...</div>
         </div>
       </div>
 
-      <!-- ═══ P2: CALL TRACKER ═══ -->
+      <!-- Deal Detail / Builder -->
+      <div class="sec g" id="deal-detail-panel">
+        <div class="sec-hd"><div class="iw sm gr">📄</div><span class="ttl" id="detail-title">Select a Deal</span></div>
+        <div class="sec-bd" id="deal-detail-content">
+          <div style="color:var(--tx3);font-size:.8rem;text-align:center;padding:20px">Click a deal to view details</div>
+        </div>
+        <div style="padding:0 16px 14px;display:flex;gap:7px" id="deal-actions" style="display:none">
+          <button class="btn gr" onclick="saveDeal()">💾 Save +500 XP</button>
+          <button class="btn bl" onclick="runAIOnDeal()">🤖 AI Analysis</button>
+          <button class="btn ghost sm" onclick="showSB()">🏆</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Deal Form -->
+    <div class="sec g" style="margin-bottom:14px">
+      <div class="sec-hd"><div class="iw sm pu">➕</div><span class="ttl">New Deal</span><button class="btn ghost sm" style="margin-left:auto" onclick="toggleNewDeal()">Toggle</button></div>
+      <div id="new-deal-form" style="display:none">
+        <div class="sec-bd">
+          <div class="col2" style="gap:9px;margin-bottom:9px">
+            <div><div class="lbl">Client Name</div><input class="inp" id="ic" placeholder="Full name"/></div>
+            <div><div class="lbl">Close Date</div><input class="inp" id="idate" type="date"/></div>
+          </div>
+          <div class="col2" style="gap:9px;margin-bottom:9px">
+            <div><div class="lbl">Role</div><div class="tog"><div class="tb on" id="br1" onclick="setR('D1')">D1</div><div class="tb" id="br2" onclick="setR('D2')">D2</div></div></div>
+            <div><div class="lbl">Type</div><div class="tog"><div class="tb on" id="bs1" onclick="setDT('Solo')">Solo</div><div class="tb" id="bs2" onclick="setDT('Split')">Split</div></div></div>
+          </div>
+          <div id="d2w" style="display:none;margin-bottom:9px"><div class="lbl">D2 Partner</div><input class="inp" id="id2" placeholder="Name"/></div>
+          <div><div class="lbl">Custom Price</div><input class="inp" id="icp" type="number" placeholder="Override price" oninput="upPrev()"/></div>
+        </div>
+        <div style="padding:0 16px 14px">
+          <div class="sec g" style="margin-bottom:9px">
+            <div class="sec-hd"><div class="iw sm bl">💼</div><span class="ttl">CV Products</span></div>
+            <div class="sec-bd"><div class="pgrid" id="pgrid"></div></div>
+          </div>
+          <div id="prevbox">
+            <div id="pvlines"><div style="color:var(--tx3);font-size:.8rem">Select a product above</div></div>
+            <div id="pvtot" style="display:none" class="ptot"><span>TOTAL</span><span class="am" id="pvamt">$0</span></div>
+          </div>
+          <button class="btn gr" style="margin-top:10px" onclick="saveDeal()">💾 Save Deal +500 XP</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AI Deal Analysis Output -->
+  <div id="deal-ai-output" style="display:none" class="sec g">
+    <div class="sec-hd"><div class="iw sm pu">🤖</div><span class="ttl">AI Deal Analysis</span><button class="btn ghost sm" style="margin-left:auto" onclick="document.getElementById('deal-ai-output').style.display='none'">✕</button></div>
+    <div class="sec-bd" id="deal-ai-content" style="font-size:.85rem;line-height:1.6;white-space:pre-wrap"></div>
+  </div>
+
+</div>
 
       <div class="panel" id="p2">
         <div class="sgrid" style="grid-template-columns:repeat(auto-fit,minmax(100px,1fr))">

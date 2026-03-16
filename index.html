@@ -385,7 +385,7 @@ select.inp option{background:#f0f2f8}
 /* ═══════════════════════════════════
    LIVE STATS WIDGET
 ═══════════════════════════════════ */
-#ssw{position:fixed;bottom:18px;right:18px;width:252px;background:var(--glass);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);border:1px solid var(--gb);border-radius:var(--r);box-shadow:var(--sh2);z-index:300;overflow:hidden;transition:all .3s cubic-bezier(.4,0,.2,1)}
+#ssw{bottom:16px;right:16px;position:fixed;bottom:18px;right:18px;width:252px;background:var(--glass);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);border:1px solid var(--gb);border-radius:var(--r);box-shadow:var(--sh2);z-index:300;overflow:hidden;transition:all .3s cubic-bezier(.4,0,.2,1)}
 #sshd{padding:9px 13px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px;cursor:move;user-select:none}
 #sst{font-family:'Syne',sans-serif;font-size:.71rem;font-weight:700;flex:1;color:var(--tx)}
 #ssmin{background:none;border:none;color:var(--tx3);cursor:pointer;padding:2px 5px;border-radius:4px;transition:all .18s;font-size:.78rem}
@@ -512,6 +512,7 @@ select.inp option{background:#f0f2f8}
 .lc-hd{font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;color:var(--gr1);margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .lc-pulse{width:8px;height:8px;border-radius:50%;background:var(--gr1);animation:aidot 1s infinite}
 
+#p0{padding-right:280px;}
 </style>
 <style>
 #auth-gate{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#0a0a0f 0%,#1a0a2e 50%,#0a1628 100%);display:flex;align-items:center;justify-content:center;font-family:system-ui}
@@ -4310,6 +4311,27 @@ async function runAIOnDeal(){
 // Auto-connect on load
 (function(){try{const s=localStorage.getItem('hub_access_token');if(s){hubToken=s;setTimeout(connectHub,800);}}catch(e){}})();
 
+</script>
+
+<script id="bd2-autokey">
+(function(){
+  const k = localStorage.getItem('bd2_apikey');
+  if(k && k.startsWith('sk-ant-')) {
+    document.addEventListener('DOMContentLoaded', function() {
+      const inp = document.getElementById('kinp');
+      if(inp && !inp.value) {
+        inp.value = k;
+        if(typeof activateKey === 'function') activateKey();
+      }
+    });
+    // Also try immediately in case DOM already loaded
+    const inp = document.getElementById('kinp');
+    if(inp && !inp.value) {
+      inp.value = k;
+      if(typeof activateKey === 'function') activateKey();
+    }
+  }
+})();
 </script>
 </body>
 </html>

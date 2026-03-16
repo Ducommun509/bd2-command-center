@@ -4176,6 +4176,21 @@ function bd2Auth(){
 // HUB CONNECTION (Deal Builder)
 // ═══════════════════════════════════════════════════════
 const HUB_API = 'https://tenxhub-api-prod-westus2-func-hwf6a7e8f4hdcdg5.westus2-01.azurewebsites.net/api';
+const N8N_PROXY = 'http://64.23.254.51:5678/webhook/hub-proxy';
+
+async function hubFetch(endpoint, method){
+  method = method || 'GET';
+  const res = await fetch(N8N_PROXY, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      url: HUB_API + endpoint,
+      token: hubToken,
+      method: method
+    })
+  });
+  return res.json();
+}
 let hubToken = '';
 let allDeals = [];
 let selectedDeal = null;
@@ -4206,11 +4221,8 @@ function connectHub(){
 
 async function loadHubData(){
   try{
-    const userRes = await fetch(HUB_API+'/users/current', {
-      headers:{'Authorization':'Bearer '+hubToken,'Content-Type':'application/json'}
-    });
-    if(!userRes.ok) throw new Error('Auth failed: '+userRes.status);
-    const user = await userRes.json();
+    const user = await hubFetch('/users/current');
+    if(user.code === 'UNAUTHORIZED' || user.error) throw new Error('Auth failed: '+JSON.stringify(user.message||user.error));
     const status = document.getElementById('hub-status');
     if(status) status.textContent = 'Connected as '+(user.firstName||user.email||'Hub User');
     const auth = document.getElementById('hub-auth-section');
@@ -4229,10 +4241,7 @@ async function loadHubData(){
 
 async function loadHubDeals(userId){
   try{
-    const res = await fetch(HUB_API+'/users/'+userId+'/dashboards', {
-      headers:{'Authorization':'Bearer '+hubToken}
-    });
-    const data = await res.json();
+    const data = await hubFetch('/users/'+userId+'/dashboards');
     renderHubData(data, []);
   }catch(err){
     const dl = document.getElementById('deals-list');

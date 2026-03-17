@@ -1,11 +1,6 @@
 {
   "name": "BD2 Command Center",
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  "features": {
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.11"
-    }
-  },
   "customizations": {
     "vscode": {
       "settings": {
@@ -20,6 +15,5 @@
     }
   },
   "forwardPorts": [5500],
-  "postCreateCommand": "echo '⚡ BD2 Command Center ready. Open index.html and use Live Server to preview, or run: python3 deploy.py'",
-  "remoteUser": "codespace"
+  "postCreateCommand": "echo '⚡ BD2 Command Center ready. Open index.html and use Live Server to preview, or run: python3 deploy.py'"
 }

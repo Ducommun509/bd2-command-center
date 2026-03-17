@@ -424,6 +424,164 @@ select.inp option{background:#f0f2f8}
   .col2,.sgrid{grid-template-columns:1fr}
 }
 
+/* ═══════════════════════════════════════════════
+   ADMIN ACCESS MANAGEMENT
+═══════════════════════════════════════════════ */
+#p12{padding:14px}
+.adm-hero{background:linear-gradient(135deg,rgba(201,90,229,.10),rgba(224,85,102,.08));border:1px solid var(--pu-b);border-radius:var(--r);padding:20px;margin-bottom:14px;display:flex;align-items:center;gap:16px}
+.adm-hero-icon{width:48px;height:48px;border-radius:14px;background:var(--pu-g);display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 14px var(--pu-glow)}
+.adm-hero-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;background:var(--pu-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.adm-hero-sub{font-size:.76rem;color:var(--tx3);margin-top:2px}
+
+/* Admin Tabs */
+.adm-tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
+.adm-tab{padding:8px 16px;font-size:.76rem;font-weight:600;color:var(--tx3);border:1px solid var(--bd);background:var(--bg4);border-radius:20px;cursor:pointer;transition:all .18s;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.adm-tab:hover{background:var(--glass);color:var(--tx)}
+.adm-tab.on{background:var(--pu-bg);border-color:var(--pu-b);color:var(--pu1);box-shadow:0 3px 10px var(--pu-glow)}
+.adm-tab .tab-count{background:var(--bg4);border-radius:10px;padding:1px 7px;font-size:.65rem;font-weight:700;color:var(--tx3);min-width:18px;text-align:center}
+.adm-tab.on .tab-count{background:rgba(201,90,229,.15);color:var(--pu1)}
+.adm-panel{display:none}.adm-panel.on{display:block}
+
+/* Admin Stat Cards */
+.adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+
+/* Admin Table */
+.adm-tbl-wrap{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--bd);background:var(--glass);backdrop-filter:blur(14px)}
+.adm-tbl{width:100%;border-collapse:collapse;font-size:.79rem;min-width:700px}
+.adm-tbl th{padding:10px 12px;text-align:left;font-size:.63rem;font-weight:700;color:var(--tx3);letter-spacing:.8px;text-transform:uppercase;background:var(--bg4);border-bottom:1px solid var(--bd);white-space:nowrap;cursor:pointer;user-select:none;transition:color .15s}
+.adm-tbl th:hover{color:var(--pu1)}
+.adm-tbl th .sort-arrow{margin-left:4px;font-size:.55rem;color:var(--tx3)}
+.adm-tbl th.sorted .sort-arrow{color:var(--pu1)}
+.adm-tbl td{padding:9px 12px;border-bottom:1px solid rgba(79,90,140,.06);color:var(--tx2);vertical-align:middle;transition:background .15s}
+.adm-tbl tr:hover td{background:var(--bg4)}
+.adm-tbl tr:last-child td{border-bottom:none}
+.adm-tbl .user-cell{display:flex;align-items:center;gap:9px}
+.adm-tbl .user-avatar{width:32px;height:32px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
+.adm-tbl .user-info{display:flex;flex-direction:column;gap:1px}
+.adm-tbl .user-name{font-weight:600;font-size:.82rem;color:var(--tx)}
+.adm-tbl .user-email{font-size:.68rem;color:var(--tx3)}
+
+/* Status badges */
+.status-badge{display:inline-flex;align-items:center;gap:4px;font-size:.66rem;font-weight:600;padding:3px 10px;border-radius:20px}
+.status-badge.active{background:var(--gr-bg);border:1px solid var(--gr-b);color:var(--gr1)}
+.status-badge.invited{background:var(--bl-bg);border:1px solid var(--bl-b);color:var(--bl1)}
+.status-badge.pending{background:var(--go-bg);border:1px solid var(--go-b);color:var(--go1)}
+.status-badge.disabled{background:var(--rd-bg);border:1px solid var(--rd-b);color:var(--rd1)}
+.status-badge.suspended{background:rgba(79,90,140,.08);border:1px solid var(--bd);color:var(--tx3)}
+.status-badge::before{content:'';width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.status-badge.active::before{background:var(--gr1)}.status-badge.invited::before{background:var(--bl1)}.status-badge.pending::before{background:var(--go1)}.status-badge.disabled::before{background:var(--rd1)}.status-badge.suspended::before{background:var(--tx3)}
+
+/* Role badge */
+.role-badge{display:inline-flex;align-items:center;gap:3px;font-size:.66rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.3px}
+.role-badge.superadmin{background:linear-gradient(135deg,rgba(201,90,229,.15),rgba(224,85,102,.12));border:1px solid var(--pu-b);color:var(--pu1)}
+.role-badge.admin{background:var(--pu-bg);border:1px solid var(--pu-b);color:var(--pu1)}
+.role-badge.manager{background:var(--bl-bg);border:1px solid var(--bl-b);color:var(--bl1)}
+.role-badge.sales{background:var(--gr-bg);border:1px solid var(--gr-b);color:var(--gr1)}
+.role-badge.operations{background:var(--te-bg);border:1px solid var(--te-b);color:var(--te1)}
+.role-badge.support{background:var(--go-bg);border:1px solid var(--go-b);color:var(--go1)}
+.role-badge.finance{background:rgba(79,90,140,.08);border:1px solid var(--bd);color:var(--tx2)}
+.role-badge.readonly{background:var(--bg4);border:1px solid var(--bd);color:var(--tx3)}
+
+/* Admin toolbar */
+.adm-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.adm-toolbar .search-wrap{position:relative;flex:1;min-width:200px;max-width:350px}
+.adm-toolbar .search-wrap .inp{padding-left:32px;padding-right:10px}
+.adm-toolbar .search-ico{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:.78rem;color:var(--tx3)}
+.adm-toolbar .filter-group{display:flex;gap:4px;align-items:center}
+
+/* Action menus */
+.adm-actions{display:flex;gap:4px;align-items:center}
+.adm-actions .act-btn{background:none;border:none;color:var(--tx3);cursor:pointer;padding:4px 7px;border-radius:6px;font-size:.78rem;transition:all .15s}
+.adm-actions .act-btn:hover{color:var(--pu1);background:var(--pu-bg)}
+.adm-actions .act-btn.danger:hover{color:var(--rd1);background:var(--rd-bg)}
+.bulk-bar{display:none;background:var(--pu-bg);border:1px solid var(--pu-b);border-radius:var(--r2);padding:8px 14px;margin-bottom:10px;align-items:center;gap:10px;animation:fi .28s ease}
+.bulk-bar.show{display:flex}
+.bulk-bar .bulk-count{font-size:.78rem;font-weight:700;color:var(--pu1)}
+.bulk-bar .bulk-actions{display:flex;gap:5px;margin-left:auto}
+
+/* Admin Modal */
+.adm-modal-overlay{position:fixed;inset:0;background:rgba(26,29,46,.55);backdrop-filter:blur(6px);z-index:9000;display:none;align-items:center;justify-content:center}
+.adm-modal-overlay.show{display:flex}
+.adm-modal{background:var(--glass);backdrop-filter:blur(32px);border:1px solid var(--gb);border-radius:20px;box-shadow:var(--sh2);width:560px;max-width:94vw;max-height:85vh;overflow-y:auto;animation:fi .2s ease}
+.adm-modal-hd{padding:18px 22px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px}
+.adm-modal-hd .modal-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;flex:1}
+.adm-modal-hd .modal-close{background:none;border:none;color:var(--tx3);cursor:pointer;font-size:1rem;padding:4px;border-radius:6px;transition:all .15s}
+.adm-modal-hd .modal-close:hover{color:var(--rd1);background:var(--rd-bg)}
+.adm-modal-bd{padding:18px 22px}
+.adm-modal-ft{padding:14px 22px;border-top:1px solid var(--bd);display:flex;justify-content:flex-end;gap:8px}
+.adm-field{margin-bottom:14px}
+.adm-field label{display:block;font-size:.68rem;font-weight:600;color:var(--tx3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.adm-field .inp{width:100%}
+
+/* Permission Matrix */
+.perm-matrix{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--bd)}
+.perm-tbl{width:100%;border-collapse:collapse;font-size:.74rem;min-width:800px}
+.perm-tbl th{padding:8px 10px;background:var(--bg4);border-bottom:1px solid var(--bd);font-size:.6rem;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
+.perm-tbl th:first-child{text-align:left;min-width:160px}
+.perm-tbl th:not(:first-child){text-align:center;min-width:70px}
+.perm-tbl td{padding:7px 10px;border-bottom:1px solid rgba(79,90,140,.06);text-align:center;vertical-align:middle}
+.perm-tbl td:first-child{text-align:left;font-weight:500;color:var(--tx2)}
+.perm-tbl tr:hover td{background:var(--bg4)}
+.perm-tbl .perm-cat{background:var(--bg3);font-weight:700;color:var(--tx);font-size:.66rem;letter-spacing:.8px;text-transform:uppercase}
+.perm-tbl .perm-cat td{border-bottom:1px solid var(--bd)}
+.perm-check{width:18px;height:18px;border-radius:5px;border:2px solid var(--bd);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .15s;font-size:.65rem;color:transparent}
+.perm-check:hover{border-color:var(--pu-b);background:var(--pu-bg)}
+.perm-check.on{background:var(--pu-g);border:none;color:#fff;box-shadow:0 2px 8px var(--pu-glow)}
+.perm-check.locked{background:var(--bg3);border-color:var(--bd);cursor:not-allowed;opacity:.5}
+
+/* Invite cards */
+.invite-card{background:var(--bg3);border:1px solid var(--gb);border-radius:var(--r2);padding:13px 15px;display:flex;align-items:center;gap:12px;margin-bottom:8px;transition:all .18s}
+.invite-card:hover{background:var(--glass);box-shadow:var(--sh)}
+.invite-card .invite-info{flex:1}
+.invite-card .invite-email{font-weight:600;font-size:.82rem;color:var(--tx)}
+.invite-card .invite-meta{font-size:.7rem;color:var(--tx3);margin-top:2px}
+
+/* Team cards */
+.team-card{background:var(--glass);border:1px solid var(--gb);border-radius:var(--r);padding:16px;box-shadow:var(--sh);transition:all .2s;cursor:pointer}
+.team-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.team-card .team-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;margin-bottom:4px}
+.team-card .team-meta{font-size:.72rem;color:var(--tx3);display:flex;gap:12px;margin-top:8px}
+
+/* Role cards */
+.role-card{background:var(--glass);border:1px solid var(--gb);border-radius:var(--r);padding:16px;box-shadow:var(--sh);transition:all .2s}
+.role-card:hover{transform:translateY(-2px);box-shadow:var(--sh2)}
+.role-card .role-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.92rem;margin-bottom:3px;display:flex;align-items:center;gap:8px}
+.role-card .role-desc{font-size:.76rem;color:var(--tx3);margin-bottom:10px;line-height:1.5}
+.role-card .role-perms{display:flex;flex-wrap:wrap;gap:4px}
+
+/* Audit log */
+.audit-entry{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid rgba(79,90,140,.06)}
+.audit-entry:last-child{border-bottom:none}
+.audit-entry .audit-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0}
+.audit-entry .audit-text{flex:1;font-size:.79rem;color:var(--tx2);line-height:1.5}
+.audit-entry .audit-text strong{color:var(--tx);font-weight:600}
+.audit-entry .audit-time{font-size:.67rem;color:var(--tx3);white-space:nowrap}
+
+/* Confirm dialog */
+.confirm-overlay{position:fixed;inset:0;background:rgba(26,29,46,.6);backdrop-filter:blur(8px);z-index:9500;display:none;align-items:center;justify-content:center}
+.confirm-overlay.show{display:flex}
+.confirm-box{background:var(--glass);backdrop-filter:blur(32px);border:1px solid var(--gb);border-radius:18px;box-shadow:var(--sh2);width:380px;max-width:90vw;padding:24px;text-align:center;animation:fi .2s ease}
+.confirm-box .confirm-icon{font-size:2rem;margin-bottom:10px}
+.confirm-box .confirm-title{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:6px}
+.confirm-box .confirm-msg{font-size:.82rem;color:var(--tx2);line-height:1.6;margin-bottom:18px}
+.confirm-box .confirm-actions{display:flex;gap:8px;justify-content:center}
+
+/* User detail panel */
+.user-detail-overlay{position:fixed;inset:0;background:rgba(26,29,46,.35);backdrop-filter:blur(4px);z-index:8500;display:none}
+.user-detail-overlay.show{display:block}
+.user-detail{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:95vw;background:var(--glass);backdrop-filter:blur(32px);border-left:1px solid var(--gb);box-shadow:-8px 0 40px rgba(79,90,140,.15);z-index:8600;overflow-y:auto;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);padding:0}
+.user-detail.show{transform:translateX(0)}
+.ud-hd{padding:18px 20px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px}
+.ud-hd .ud-close{background:none;border:none;color:var(--tx3);cursor:pointer;font-size:1rem;padding:4px;margin-left:auto}
+.ud-avatar{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:700;color:#fff;margin:18px auto 10px}
+.ud-name{font-family:'Syne',sans-serif;font-weight:800;font-size:1.1rem;text-align:center}
+.ud-email{font-size:.76rem;color:var(--tx3);text-align:center;margin-top:2px}
+.ud-section{padding:14px 20px;border-bottom:1px solid var(--bd)}
+.ud-section .ud-label{font-size:.63rem;font-weight:700;color:var(--tx3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.ud-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:.8rem}
+.ud-row .ud-key{color:var(--tx3);font-weight:500}
+.ud-row .ud-val{color:var(--tx);font-weight:600}
+
 /* DATA OS */
 #p10{padding:14px}
 .dos-tabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
@@ -579,6 +737,7 @@ select.inp option{background:#f0f2f8}
     <button class="nb" onclick="goMode(9,this)"><span class="ni">📊</span>Analytics</button>
     <button class="nb" onclick="goMode(10,this)"><span class="ni">🗄️</span>Data OS</button>
     <button class="nb" onclick="goMode(11,this)"><span class="ni">📱</span>Dialer.io</button>
+    <button class="nb" onclick="goMode(12,this)"><span class="ni">🛡️</span>Admin</button>
     <div style="width:1px;height:20px;background:var(--bd);margin:0 4px;flex-shrink:0"></div>
     <div id="rankbar">
       <button class="nf-btn" onclick="toggleNotif()" title="Notifications">
@@ -604,6 +763,7 @@ select.inp option{background:#f0f2f8}
       <button class="si" onclick="goMode(7,document.querySelectorAll('.nb')[7])" title="Knowledge">🧠<span class="si-lbl">Knowledge</span></button>
       <button class="si" onclick="goMode(9,document.querySelectorAll('.nb')[9])" title="Analytics">📊<span class="si-lbl">Analytics</span></button>
       <div style="height:1px;background:var(--bd);width:36px;margin:4px 0"></div>
+      <button class="si" onclick="goMode(12,document.querySelectorAll('.nb')[12])" title="Admin">🛡️<span class="si-lbl">Admin</span></button>
       <button class="si" onclick="showSB()" title="Scoreboard">🏆<span class="si-lbl">Scoreboard</span></button>
       <button class="si" onclick="toggleSS()" title="Live Stats">📈<span class="si-lbl">Live Stats</span></button>
     </div>
@@ -1955,9 +2115,79 @@ Fields to map:
         </div>
       </div>
 
+
+      <!-- ═══ P12: ADMIN ACCESS MANAGEMENT ═══ -->
+      <div class="panel" id="p12">
+        <div class="adm-hero">
+          <div class="adm-hero-icon">🛡️</div>
+          <div>
+            <div class="adm-hero-title">Access Control Center</div>
+            <div class="adm-hero-sub">Manage users, teams, roles, permissions, and invitations</div>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:6px">
+            <button class="btn pu sm" onclick="admShowModal('add-user')">+ Add User</button>
+            <button class="btn bl sm" onclick="admShowModal('invite')">✉ Invite</button>
+          </div>
+        </div>
+        <div class="adm-stats">
+          <div class="sc bl"><div class="iw sm bl">👥</div><div class="sv bl" id="adm-total-users">0</div><div class="sl">Total Users</div></div>
+          <div class="sc gr"><div class="iw sm gr">✅</div><div class="sv gr" id="adm-active-users">0</div><div class="sl">Active</div></div>
+          <div class="sc go"><div class="iw sm go">✉</div><div class="sv go" id="adm-pending-invites">0</div><div class="sl">Pending Invites</div></div>
+          <div class="sc pu"><div class="iw sm pu">🏢</div><div class="sv pu" id="adm-total-teams">0</div><div class="sl">Teams</div></div>
+          <div class="sc te"><div class="iw sm te">🛡️</div><div class="sv te" id="adm-total-roles">8</div><div class="sl">Roles</div></div>
+        </div>
+        <div class="adm-tabs">
+          <button class="adm-tab on" onclick="admTab(0,this)">👥 Users <span class="tab-count" id="atc-users">0</span></button>
+          <button class="adm-tab" onclick="admTab(1,this)">🏢 Teams <span class="tab-count" id="atc-teams">0</span></button>
+          <button class="adm-tab" onclick="admTab(2,this)">🛡️ Roles <span class="tab-count" id="atc-roles">8</span></button>
+          <button class="adm-tab" onclick="admTab(3,this)">🔐 Permissions</button>
+          <button class="adm-tab" onclick="admTab(4,this)">✉ Invites <span class="tab-count" id="atc-invites">0</span></button>
+          <button class="adm-tab" onclick="admTab(5,this)">📋 Audit Log</button>
+        </div>
+        <div class="adm-panel on" id="adm-t0">
+          <div class="adm-toolbar">
+            <div class="search-wrap"><span class="search-ico">🔍</span><input class="inp" id="adm-user-search" placeholder="Search users..." oninput="admFilterUsers()"></div>
+            <div class="filter-group">
+              <select class="inp" style="width:auto;padding:7px 10px;font-size:.74rem" id="adm-filter-role" onchange="admFilterUsers()"><option value="">All Roles</option><option value="Super Admin">Super Admin</option><option value="Admin">Admin</option><option value="Manager">Manager</option><option value="Sales">Sales</option><option value="Operations">Operations</option><option value="Support">Support</option><option value="Finance">Finance</option><option value="Read Only">Read Only</option></select>
+              <select class="inp" style="width:auto;padding:7px 10px;font-size:.74rem" id="adm-filter-status" onchange="admFilterUsers()"><option value="">All Status</option><option value="active">Active</option><option value="invited">Invited</option><option value="pending">Pending</option><option value="disabled">Disabled</option><option value="suspended">Suspended</option></select>
+              <select class="inp" style="width:auto;padding:7px 10px;font-size:.74rem" id="adm-filter-team" onchange="admFilterUsers()"><option value="">All Teams</option></select>
+            </div>
+          </div>
+          <div class="bulk-bar" id="adm-bulk-bar"><input type="checkbox" onchange="admToggleSelectAll()" style="cursor:pointer"><span class="bulk-count"><span id="adm-bulk-count">0</span> selected</span><div class="bulk-actions"><button class="btn ghost xs" onclick="admBulkAction('role')">Assign Role</button><button class="btn ghost xs" onclick="admBulkAction('team')">Assign Team</button><button class="btn ghost xs" onclick="admBulkAction('deactivate')">Deactivate</button><button class="btn rd xs" onclick="admBulkAction('delete')">Delete</button></div></div>
+          <div class="adm-tbl-wrap"><table class="adm-tbl"><thead><tr><th style="width:30px"><input type="checkbox" id="adm-th-check" onchange="admToggleSelectAll()" style="cursor:pointer"></th><th onclick="admSortUsers('name')">User <span class="sort-arrow">▼</span></th><th onclick="admSortUsers('role')">Role <span class="sort-arrow">▼</span></th><th onclick="admSortUsers('team')">Team <span class="sort-arrow">▼</span></th><th onclick="admSortUsers('status')">Status <span class="sort-arrow">▼</span></th><th onclick="admSortUsers('lastLogin')">Last Login <span class="sort-arrow">▼</span></th><th style="width:80px">Actions</th></tr></thead><tbody id="adm-user-tbody"></tbody></table></div>
+        </div>
+        <div class="adm-panel" id="adm-t1">
+          <div class="adm-toolbar"><div class="search-wrap"><span class="search-ico">🔍</span><input class="inp" id="adm-team-search" placeholder="Search teams..." oninput="admRenderTeams()"></div><button class="btn pu sm" onclick="admShowModal('add-team')" style="margin-left:auto">+ Create Team</button></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px" id="adm-teams-grid"></div>
+        </div>
+        <div class="adm-panel" id="adm-t2">
+          <div class="adm-toolbar"><button class="btn pu sm" onclick="admShowModal('add-role')" style="margin-left:auto">+ Create Custom Role</button></div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px" id="adm-roles-grid"></div>
+        </div>
+        <div class="adm-panel" id="adm-t3">
+          <div class="sec g"><div class="sec-hd"><div class="iw sm pu">🔐</div><span class="ttl">Permission Matrix</span><span class="sub">Role-based access control</span><button class="btn pu sm" onclick="admSavePermissions()" style="margin-left:auto">💾 Save</button></div>
+          <div class="sec-bd"><div style="font-size:.76rem;color:var(--tx3);margin-bottom:12px;line-height:1.5">Click checkboxes to toggle permissions. Super Admin permissions are locked.</div><div class="perm-matrix" id="adm-perm-matrix"></div></div></div>
+        </div>
+        <div class="adm-panel" id="adm-t4">
+          <div class="adm-toolbar"><div class="search-wrap"><span class="search-ico">🔍</span><input class="inp" id="adm-invite-search" placeholder="Search invites..." oninput="admRenderInvites()"></div>
+          <div class="filter-group"><select class="inp" style="width:auto;padding:7px 10px;font-size:.74rem" id="adm-filter-invite-status" onchange="admRenderInvites()"><option value="">All Status</option><option value="pending">Pending</option><option value="accepted">Accepted</option><option value="expired">Expired</option><option value="canceled">Canceled</option></select></div>
+          <button class="btn bl sm" onclick="admShowModal('invite')" style="margin-left:auto">✉ Send Invite</button></div>
+          <div id="adm-invites-list"></div>
+        </div>
+        <div class="adm-panel" id="adm-t5">
+          <div class="sec g"><div class="sec-hd"><div class="iw sm rd">📋</div><span class="ttl">Audit Log</span><span class="sub">All sensitive actions tracked</span><button class="btn ghost sm" onclick="admExportAudit()" style="margin-left:auto">📥 Export</button></div>
+          <div class="sec-bd" id="adm-audit-log" style="max-height:500px;overflow-y:auto"></div></div>
+        </div>
+      </div>
     </div><!-- /panels -->
   </div><!-- /body -->
 </div><!-- /app -->
+
+<!-- ADMIN MODALS -->
+<div class="adm-modal-overlay" id="adm-modal" onclick="if(event.target===this)admCloseModal()"></div>
+<div class="confirm-overlay" id="adm-confirm" onclick="if(event.target===this)admCloseConfirm()"></div>
+<div class="user-detail-overlay" id="ud-overlay" onclick="admCloseUserDetail()"></div>
+<div class="user-detail" id="ud-panel"></div>
 
 <!-- SCOREBOARD -->
 <div id="sb">
@@ -4310,6 +4540,810 @@ async function runAIOnDeal(){
 // Auto-connect on load
 (function(){try{const s=localStorage.getItem('hub_access_token');if(s){hubToken=s;setTimeout(connectHub,800);}}catch(e){}})();
 
+
+// ═══════════════════════════════════════════════════════
+// ADMIN ACCESS MANAGEMENT SYSTEM
+// ═══════════════════════════════════════════════════════
+
+// ── DATA MODEL ──
+const ADM_ROLES_DEFAULT = [
+  {id:'superadmin',name:'Super Admin',desc:'Full system access. Cannot be restricted.',system:true,color:'pu',permissions:null},
+  {id:'admin',name:'Admin',desc:'Manage users, teams, roles, and settings.',system:true,color:'pu',permissions:null},
+  {id:'manager',name:'Manager',desc:'Team lead with reporting and approval access.',system:true,color:'bl',permissions:null},
+  {id:'sales',name:'Sales',desc:'Access to deals, calls, AI Brain, and pipeline tools.',system:true,color:'gr',permissions:null},
+  {id:'operations',name:'Operations',desc:'Workflow management, integrations, and data ops.',system:true,color:'te',permissions:null},
+  {id:'support',name:'Support',desc:'Read access plus knowledge base and client management.',system:true,color:'go',permissions:null},
+  {id:'finance',name:'Finance',desc:'Revenue reports, deal values, and financial exports.',system:true,color:'tx2',permissions:null},
+  {id:'readonly',name:'Read Only',desc:'View-only access to dashboards and reports.',system:true,color:'tx3',permissions:null}
+];
+
+const ADM_PERM_CATEGORIES = [
+  {cat:'Dashboard',perms:['view_dashboard','edit_dashboard']},
+  {cat:'Deals & Pipeline',perms:['view_deals','create_deals','edit_deals','delete_deals']},
+  {cat:'Calls & Dialer',perms:['view_calls','log_calls','manage_dialer']},
+  {cat:'AI Brain',perms:['use_ai_brain','manage_agents']},
+  {cat:'Reports & Analytics',perms:['view_reports','export_reports']},
+  {cat:'Users & Teams',perms:['view_users','manage_users','manage_teams','manage_roles']},
+  {cat:'Settings',perms:['view_settings','manage_settings']},
+  {cat:'Workflows',perms:['view_workflows','create_workflows','manage_workflows']},
+  {cat:'Integrations',perms:['view_integrations','manage_integrations']},
+  {cat:'Finance',perms:['view_finance','manage_finance','export_finance']},
+  {cat:'Data & Exports',perms:['export_data','delete_records','bulk_operations']},
+  {cat:'Audit & Security',perms:['view_audit_log','manage_permissions']}
+];
+
+const ADM_PERM_LABELS = {
+  view_dashboard:'View Dashboard',edit_dashboard:'Edit Dashboard',
+  view_deals:'View Deals',create_deals:'Create Deals',edit_deals:'Edit Deals',delete_deals:'Delete Deals',
+  view_calls:'View Calls',log_calls:'Log Calls',manage_dialer:'Manage Dialer',
+  use_ai_brain:'Use AI Brain',manage_agents:'Manage AI Agents',
+  view_reports:'View Reports',export_reports:'Export Reports',
+  view_users:'View Users',manage_users:'Manage Users',manage_teams:'Manage Teams',manage_roles:'Manage Roles',
+  view_settings:'View Settings',manage_settings:'Manage Settings',
+  view_workflows:'View Workflows',create_workflows:'Create Workflows',manage_workflows:'Manage Workflows',
+  view_integrations:'View Integrations',manage_integrations:'Manage Integrations',
+  view_finance:'View Finance',manage_finance:'Manage Finance',export_finance:'Export Finance',
+  export_data:'Export Data',delete_records:'Delete Records',bulk_operations:'Bulk Operations',
+  view_audit_log:'View Audit Log',manage_permissions:'Manage Permissions'
+};
+
+// Default permission matrix per role
+const ADM_DEFAULT_PERMS = {
+  superadmin: Object.keys(ADM_PERM_LABELS).reduce((a,k)=>{a[k]=true;return a;},{}),
+  admin: {view_dashboard:true,edit_dashboard:true,view_deals:true,create_deals:true,edit_deals:true,delete_deals:true,view_calls:true,log_calls:true,manage_dialer:true,use_ai_brain:true,manage_agents:true,view_reports:true,export_reports:true,view_users:true,manage_users:true,manage_teams:true,manage_roles:true,view_settings:true,manage_settings:true,view_workflows:true,create_workflows:true,manage_workflows:true,view_integrations:true,manage_integrations:true,view_finance:true,manage_finance:false,export_finance:false,export_data:true,delete_records:true,bulk_operations:true,view_audit_log:true,manage_permissions:true},
+  manager: {view_dashboard:true,edit_dashboard:false,view_deals:true,create_deals:true,edit_deals:true,delete_deals:false,view_calls:true,log_calls:true,manage_dialer:false,use_ai_brain:true,manage_agents:false,view_reports:true,export_reports:true,view_users:true,manage_users:false,manage_teams:false,manage_roles:false,view_settings:true,manage_settings:false,view_workflows:true,create_workflows:true,manage_workflows:false,view_integrations:true,manage_integrations:false,view_finance:true,manage_finance:false,export_finance:false,export_data:true,delete_records:false,bulk_operations:false,view_audit_log:false,manage_permissions:false},
+  sales: {view_dashboard:true,edit_dashboard:false,view_deals:true,create_deals:true,edit_deals:true,delete_deals:false,view_calls:true,log_calls:true,manage_dialer:false,use_ai_brain:true,manage_agents:false,view_reports:true,export_reports:false,view_users:false,manage_users:false,manage_teams:false,manage_roles:false,view_settings:false,manage_settings:false,view_workflows:true,create_workflows:false,manage_workflows:false,view_integrations:false,manage_integrations:false,view_finance:false,manage_finance:false,export_finance:false,export_data:false,delete_records:false,bulk_operations:false,view_audit_log:false,manage_permissions:false},
+  operations: {view_dashboard:true,edit_dashboard:true,view_deals:true,create_deals:false,edit_deals:false,delete_deals:false,view_calls:true,log_calls:false,manage_dialer:true,use_ai_brain:true,manage_agents:true,view_reports:true,export_reports:true,view_users:true,manage_users:false,manage_teams:false,manage_roles:false,view_settings:true,manage_settings:true,view_workflows:true,create_workflows:true,manage_workflows:true,view_integrations:true,manage_integrations:true,view_finance:false,manage_finance:false,export_finance:false,export_data:true,delete_records:false,bulk_operations:true,view_audit_log:true,manage_permissions:false},
+  support: {view_dashboard:true,edit_dashboard:false,view_deals:true,create_deals:false,edit_deals:false,delete_deals:false,view_calls:true,log_calls:true,manage_dialer:false,use_ai_brain:true,manage_agents:false,view_reports:true,export_reports:false,view_users:true,manage_users:false,manage_teams:false,manage_roles:false,view_settings:false,manage_settings:false,view_workflows:true,create_workflows:false,manage_workflows:false,view_integrations:false,manage_integrations:false,view_finance:false,manage_finance:false,export_finance:false,export_data:false,delete_records:false,bulk_operations:false,view_audit_log:false,manage_permissions:false},
+  finance: {view_dashboard:true,edit_dashboard:false,view_deals:true,create_deals:false,edit_deals:false,delete_deals:false,view_calls:false,log_calls:false,manage_dialer:false,use_ai_brain:false,manage_agents:false,view_reports:true,export_reports:true,view_users:false,manage_users:false,manage_teams:false,manage_roles:false,view_settings:false,manage_settings:false,view_workflows:false,create_workflows:false,manage_workflows:false,view_integrations:false,manage_integrations:false,view_finance:true,manage_finance:true,export_finance:true,export_data:true,delete_records:false,bulk_operations:false,view_audit_log:true,manage_permissions:false},
+  readonly: {view_dashboard:true,edit_dashboard:false,view_deals:true,create_deals:false,edit_deals:false,delete_deals:false,view_calls:true,log_calls:false,manage_dialer:false,use_ai_brain:false,manage_agents:false,view_reports:true,export_reports:false,view_users:false,manage_users:false,manage_teams:false,manage_roles:false,view_settings:false,manage_settings:false,view_workflows:true,create_workflows:false,manage_workflows:false,view_integrations:false,manage_integrations:false,view_finance:false,manage_finance:false,export_finance:false,export_data:false,delete_records:false,bulk_operations:false,view_audit_log:false,manage_permissions:false}
+};
+
+// ── STATE ──
+let admState = null;
+function admLoad() {
+  try {
+    const d = JSON.parse(localStorage.getItem('bd2_admin') || '{}');
+    admState = {
+      users: d.users || [{
+        id:'u1',name:'Brandon Ducommun',email:'bducommun@cardoneventures.com',phone:'',
+        role:'Super Admin',roleId:'superadmin',team:'Leadership',status:'active',department:'Sales',
+        createdAt:new Date('2026-01-01').toISOString(),createdBy:'System',
+        lastLogin:new Date().toISOString(),updatedAt:new Date().toISOString(),updatedBy:'System',
+        invitedAt:null,avatar:null
+      }],
+      teams: d.teams || [{id:'t1',name:'Leadership',manager:'Brandon Ducommun',defaultRole:'Admin',members:['u1'],archived:false,createdAt:new Date('2026-01-01').toISOString()},{id:'t2',name:'Sales Team',manager:'',defaultRole:'Sales',members:[],archived:false,createdAt:new Date('2026-01-01').toISOString()},{id:'t3',name:'Operations',manager:'',defaultRole:'Operations',members:[],archived:false,createdAt:new Date('2026-01-01').toISOString()}],
+      roles: d.roles || JSON.parse(JSON.stringify(ADM_ROLES_DEFAULT)),
+      permissions: d.permissions || JSON.parse(JSON.stringify(ADM_DEFAULT_PERMS)),
+      invites: d.invites || [],
+      audit: d.audit || [{id:'a1',action:'system_init',actor:'System',target:'Admin System',detail:'Access Control Center initialized',ts:new Date().toISOString(),category:'system'}],
+      selectedUsers: []
+    };
+  } catch(e) {
+    admState = {users:[],teams:[],roles:JSON.parse(JSON.stringify(ADM_ROLES_DEFAULT)),permissions:JSON.parse(JSON.stringify(ADM_DEFAULT_PERMS)),invites:[],audit:[],selectedUsers:[]};
+  }
+}
+function admSave() {
+  try {
+    const d = {users:admState.users,teams:admState.teams,roles:admState.roles,permissions:admState.permissions,invites:admState.invites,audit:admState.audit};
+    localStorage.setItem('bd2_admin', JSON.stringify(d));
+  } catch(e) {}
+}
+
+// ── AUDIT ──
+function admAudit(action, target, detail, category='user') {
+  admState.audit.unshift({id:'a'+Date.now(),action,actor:admCurrentUser(),target,detail,ts:new Date().toISOString(),category});
+  if(admState.audit.length > 500) admState.audit = admState.audit.slice(0, 500);
+  admSave();
+}
+function admCurrentUser() {
+  return admState.users.length > 0 ? admState.users[0].name : 'System';
+}
+
+// ── TAB SWITCHING ──
+function admTab(n, el) {
+  document.querySelectorAll('.adm-tab').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.adm-panel').forEach(p => p.classList.remove('on'));
+  el.classList.add('on');
+  const p = document.getElementById('adm-t' + n);
+  if(p) p.classList.add('on');
+  if(n===0) admRenderUsers();
+  if(n===1) admRenderTeams();
+  if(n===2) admRenderRoles();
+  if(n===3) admRenderPermMatrix();
+  if(n===4) admRenderInvites();
+  if(n===5) admRenderAudit();
+}
+
+// ── RENDER ALL ──
+function admRenderAll() {
+  if(!admState) admLoad();
+  admRenderStats();
+  admRenderUsers();
+  admUpdateTeamFilter();
+}
+
+function admRenderStats() {
+  const u = admState.users;
+  document.getElementById('adm-total-users').textContent = u.length;
+  document.getElementById('adm-active-users').textContent = u.filter(x=>x.status==='active').length;
+  document.getElementById('adm-pending-invites').textContent = admState.invites.filter(x=>x.status==='pending').length;
+  document.getElementById('adm-total-teams').textContent = admState.teams.filter(x=>!x.archived).length;
+  document.getElementById('adm-total-roles').textContent = admState.roles.length;
+  const tc = (id,v) => {const el=document.getElementById(id);if(el)el.textContent=v;};
+  tc('atc-users', u.length);
+  tc('atc-teams', admState.teams.filter(x=>!x.archived).length);
+  tc('atc-roles', admState.roles.length);
+  tc('atc-invites', admState.invites.filter(x=>x.status==='pending').length);
+}
+
+// ── USER TABLE ──
+let admSortCol = 'name', admSortDir = 1;
+function admSortUsers(col) {
+  if(admSortCol === col) admSortDir *= -1; else { admSortCol = col; admSortDir = 1; }
+  admFilterUsers();
+}
+function admFilterUsers() {
+  const q = (document.getElementById('adm-user-search')?.value||'').toLowerCase();
+  const fr = document.getElementById('adm-filter-role')?.value||'';
+  const fs = document.getElementById('adm-filter-status')?.value||'';
+  const ft = document.getElementById('adm-filter-team')?.value||'';
+  let users = admState.users.filter(u => {
+    if(q && !u.name.toLowerCase().includes(q) && !u.email.toLowerCase().includes(q)) return false;
+    if(fr && u.role !== fr) return false;
+    if(fs && u.status !== fs) return false;
+    if(ft && u.team !== ft) return false;
+    return true;
+  });
+  users.sort((a,b) => {
+    let va=a[admSortCol]||'', vb=b[admSortCol]||'';
+    if(typeof va==='string') va=va.toLowerCase();
+    if(typeof vb==='string') vb=vb.toLowerCase();
+    return va<vb ? -admSortDir : va>vb ? admSortDir : 0;
+  });
+  admRenderUserTable(users);
+}
+function admRenderUsers() { admFilterUsers(); }
+function admRenderUserTable(users) {
+  const tbody = document.getElementById('adm-user-tbody');
+  if(!tbody) return;
+  const avatarColors = ['var(--pu-g)','var(--bl-g)','var(--gr-g)','var(--go-g)','var(--te-g)','var(--rd-g)'];
+  tbody.innerHTML = users.map((u,i) => {
+    const initials = u.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    const ac = avatarColors[i % avatarColors.length];
+    const rc = u.roleId || u.role.toLowerCase().replace(/\s/g,'');
+    const checked = admState.selectedUsers.includes(u.id) ? 'checked' : '';
+    const loginStr = u.lastLogin ? admTimeAgo(u.lastLogin) : 'Never';
+    return `<tr>
+      <td><input type="checkbox" ${checked} onchange="admToggleUser('${u.id}')" style="cursor:pointer"></td>
+      <td><div class="user-cell"><div class="user-avatar" style="background:${ac}">${initials}</div><div class="user-info"><span class="user-name">${u.name}</span><span class="user-email">${u.email}</span></div></div></td>
+      <td><span class="role-badge ${rc}">${u.role}</span></td>
+      <td style="font-size:.78rem;color:var(--tx2)">${u.team||'—'}</td>
+      <td><span class="status-badge ${u.status}">${u.status.charAt(0).toUpperCase()+u.status.slice(1)}</span></td>
+      <td style="font-size:.74rem;color:var(--tx3)">${loginStr}</td>
+      <td><div class="adm-actions">
+        <button class="act-btn" onclick="admViewUser('${u.id}')" title="View">👁</button>
+        <button class="act-btn" onclick="admShowModal('edit-user','${u.id}')" title="Edit">✏️</button>
+        <button class="act-btn danger" onclick="admUserAction('${u.id}','menu')" title="More">⋮</button>
+      </div></td>
+    </tr>`;
+  }).join('');
+  admUpdateBulkBar();
+}
+
+function admTimeAgo(iso) {
+  const d = new Date(iso), now = new Date();
+  const diff = Math.floor((now - d) / 1000);
+  if(diff < 60) return 'Just now';
+  if(diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if(diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  if(diff < 604800) return Math.floor(diff/86400) + 'd ago';
+  return d.toLocaleDateString();
+}
+
+// ── USER SELECTION ──
+function admToggleUser(id) {
+  const idx = admState.selectedUsers.indexOf(id);
+  if(idx > -1) admState.selectedUsers.splice(idx, 1); else admState.selectedUsers.push(id);
+  admUpdateBulkBar();
+}
+function admToggleSelectAll() {
+  const allIds = admState.users.map(u=>u.id);
+  if(admState.selectedUsers.length === allIds.length) admState.selectedUsers = [];
+  else admState.selectedUsers = [...allIds];
+  admRenderUsers();
+}
+function admUpdateBulkBar() {
+  const bar = document.getElementById('adm-bulk-bar');
+  const cnt = document.getElementById('adm-bulk-count');
+  if(admState.selectedUsers.length > 0) {
+    bar.classList.add('show'); cnt.textContent = admState.selectedUsers.length;
+  } else { bar.classList.remove('show'); }
+}
+
+// ── BULK ACTIONS ──
+function admBulkAction(action) {
+  if(admState.selectedUsers.length === 0) return;
+  if(action === 'delete') {
+    admConfirm('⚠️','Delete '+admState.selectedUsers.length+' users?','This action cannot be undone. Super Admins will be protected.',() => {
+      const protected_ = admState.users.filter(u=>admState.selectedUsers.includes(u.id)&&u.roleId==='superadmin');
+      if(protected_.length > 0 && admState.users.filter(u=>u.roleId==='superadmin').length <= protected_.length) {
+        toast('Cannot delete the last Super Admin','rd'); return;
+      }
+      admState.selectedUsers.forEach(id => {
+        const u = admState.users.find(x=>x.id===id);
+        if(u && u.roleId==='superadmin' && admState.users.filter(x=>x.roleId==='superadmin').length <= 1) return;
+        if(u) { admAudit('user_deleted',u.name,'Bulk delete','user'); admState.users = admState.users.filter(x=>x.id!==id); }
+      });
+      admState.selectedUsers = []; admSave(); admRenderAll(); toast('Users deleted','rd');
+    });
+  } else if(action === 'deactivate') {
+    admConfirm('⏸','Deactivate '+admState.selectedUsers.length+' users?','They will lose access immediately.',() => {
+      admState.selectedUsers.forEach(id => {
+        const u = admState.users.find(x=>x.id===id);
+        if(u && u.roleId==='superadmin' && admState.users.filter(x=>x.roleId==='superadmin'&&x.status==='active').length <= 1) return;
+        if(u) { u.status='disabled'; admAudit('user_deactivated',u.name,'Bulk deactivate','user'); }
+      });
+      admState.selectedUsers = []; admSave(); admRenderAll(); toast('Users deactivated','go');
+    });
+  } else if(action === 'role') {
+    admShowModal('bulk-role');
+  } else if(action === 'team') {
+    admShowModal('bulk-team');
+  }
+}
+
+// ── USER ACTIONS ──
+function admUserAction(id, action) {
+  const u = admState.users.find(x=>x.id===id);
+  if(!u) return;
+  if(action === 'menu') {
+    // Show inline action menu
+    const actions = [];
+    if(u.status==='active') actions.push({label:'⏸ Suspend',action:'suspend'},{label:'🚫 Deactivate',action:'deactivate'});
+    if(u.status==='suspended'||u.status==='disabled') actions.push({label:'✅ Reactivate',action:'reactivate'});
+    actions.push({label:'🗑 Delete',action:'delete'});
+    const menuHtml = actions.map(a=>`<button class="btn ghost xs" style="width:100%;justify-content:flex-start;margin-bottom:3px" onclick="admUserAction('${id}','${a.action}');admCloseModal()">${a.label}</button>`).join('');
+    document.getElementById('adm-modal').innerHTML = `<div class="adm-modal" style="width:220px"><div class="adm-modal-hd"><span class="modal-title">${u.name}</span><button class="modal-close" onclick="admCloseModal()">✕</button></div><div class="adm-modal-bd">${menuHtml}</div></div>`;
+    document.getElementById('adm-modal').classList.add('show');
+    return;
+  }
+  if(action === 'suspend') {
+    admConfirm('⏸','Suspend '+u.name+'?','User will be locked out immediately.',() => {
+      if(u.roleId==='superadmin'&&admState.users.filter(x=>x.roleId==='superadmin'&&x.status==='active').length<=1){toast('Cannot suspend the last active Super Admin','rd');return;}
+      u.status='suspended';u.updatedAt=new Date().toISOString();u.updatedBy=admCurrentUser();
+      admAudit('user_suspended',u.name,'Account suspended','security');admSave();admRenderAll();toast('User suspended','go');
+    });
+  } else if(action === 'deactivate') {
+    admConfirm('🚫','Deactivate '+u.name+'?','User will lose all access.',() => {
+      if(u.roleId==='superadmin'&&admState.users.filter(x=>x.roleId==='superadmin'&&x.status==='active').length<=1){toast('Cannot deactivate the last active Super Admin','rd');return;}
+      u.status='disabled';u.updatedAt=new Date().toISOString();u.updatedBy=admCurrentUser();
+      admAudit('user_deactivated',u.name,'Account deactivated','security');admSave();admRenderAll();toast('User deactivated','rd');
+    });
+  } else if(action === 'reactivate') {
+    u.status='active';u.updatedAt=new Date().toISOString();u.updatedBy=admCurrentUser();
+    admAudit('user_reactivated',u.name,'Account reactivated','user');admSave();admRenderAll();toast('User reactivated','gr');
+  } else if(action === 'delete') {
+    admConfirm('🗑','Delete '+u.name+'?','This action is permanent and cannot be undone.',() => {
+      if(u.roleId==='superadmin'&&admState.users.filter(x=>x.roleId==='superadmin').length<=1){toast('Cannot delete the last Super Admin','rd');return;}
+      admAudit('user_deleted',u.name,'Account permanently deleted','security');
+      admState.users=admState.users.filter(x=>x.id!==id);
+      // Remove from teams
+      admState.teams.forEach(t=>{t.members=t.members.filter(m=>m!==id);});
+      admSave();admRenderAll();toast('User deleted','rd');
+    });
+  }
+}
+
+// ── USER DETAIL PANEL ──
+function admViewUser(id) {
+  const u = admState.users.find(x=>x.id===id);
+  if(!u) return;
+  const initials = u.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+  const avatarColors = ['var(--pu-g)','var(--bl-g)','var(--gr-g)','var(--go-g)','var(--te-g)'];
+  const ac = avatarColors[admState.users.indexOf(u) % avatarColors.length];
+  const rc = u.roleId || u.role.toLowerCase().replace(/\s/g,'');
+  const panel = document.getElementById('ud-panel');
+  panel.innerHTML = `
+    <div class="ud-hd"><span class="ttl">User Details</span><button class="ud-close" onclick="admCloseUserDetail()">✕</button></div>
+    <div class="ud-avatar" style="background:${ac}">${initials}</div>
+    <div class="ud-name">${u.name}</div>
+    <div class="ud-email">${u.email}</div>
+    <div style="text-align:center;margin:10px 0"><span class="role-badge ${rc}">${u.role}</span> <span class="status-badge ${u.status}" style="margin-left:4px">${u.status.charAt(0).toUpperCase()+u.status.slice(1)}</span></div>
+    <div class="ud-section">
+      <div class="ud-label">Contact</div>
+      <div class="ud-row"><span class="ud-key">Email</span><span class="ud-val">${u.email}</span></div>
+      <div class="ud-row"><span class="ud-key">Phone</span><span class="ud-val">${u.phone||'—'}</span></div>
+    </div>
+    <div class="ud-section">
+      <div class="ud-label">Organization</div>
+      <div class="ud-row"><span class="ud-key">Team</span><span class="ud-val">${u.team||'—'}</span></div>
+      <div class="ud-row"><span class="ud-key">Department</span><span class="ud-val">${u.department||'—'}</span></div>
+      <div class="ud-row"><span class="ud-key">Role</span><span class="ud-val">${u.role}</span></div>
+    </div>
+    <div class="ud-section">
+      <div class="ud-label">Timeline</div>
+      <div class="ud-row"><span class="ud-key">Created</span><span class="ud-val">${new Date(u.createdAt).toLocaleDateString()}</span></div>
+      <div class="ud-row"><span class="ud-key">Created By</span><span class="ud-val">${u.createdBy||'—'}</span></div>
+      <div class="ud-row"><span class="ud-key">Last Login</span><span class="ud-val">${u.lastLogin?admTimeAgo(u.lastLogin):'Never'}</span></div>
+      <div class="ud-row"><span class="ud-key">Last Updated</span><span class="ud-val">${u.updatedAt?new Date(u.updatedAt).toLocaleDateString():'—'}</span></div>
+      <div class="ud-row"><span class="ud-key">Updated By</span><span class="ud-val">${u.updatedBy||'—'}</span></div>
+      ${u.invitedAt?`<div class="ud-row"><span class="ud-key">Invited</span><span class="ud-val">${new Date(u.invitedAt).toLocaleDateString()}</span></div>`:''}
+    </div>
+    <div style="padding:14px 20px;display:flex;gap:6px;flex-wrap:wrap">
+      <button class="btn pu sm" onclick="admShowModal('edit-user','${u.id}');admCloseUserDetail()">✏️ Edit</button>
+      ${u.status==='active'?`<button class="btn ghost sm" onclick="admUserAction('${u.id}','suspend');admCloseUserDetail()">⏸ Suspend</button>`:''}
+      ${u.status!=='active'?`<button class="btn gr sm" onclick="admUserAction('${u.id}','reactivate');admCloseUserDetail()">✅ Reactivate</button>`:''}
+      <button class="btn rd sm" onclick="admUserAction('${u.id}','delete');admCloseUserDetail()">🗑 Delete</button>
+    </div>`;
+  document.getElementById('ud-overlay').classList.add('show');
+  panel.classList.add('show');
+}
+function admCloseUserDetail() {
+  document.getElementById('ud-overlay').classList.remove('show');
+  document.getElementById('ud-panel').classList.remove('show');
+}
+
+// ── TEAMS ──
+function admRenderTeams() {
+  const q = (document.getElementById('adm-team-search')?.value||'').toLowerCase();
+  const grid = document.getElementById('adm-teams-grid');
+  const teams = admState.teams.filter(t => !t.archived && (!q || t.name.toLowerCase().includes(q)));
+  grid.innerHTML = teams.map(t => {
+    const mc = t.members.length;
+    const mgr = t.manager || 'No manager assigned';
+    return `<div class="team-card" onclick="admShowModal('edit-team','${t.id}')">
+      <div class="team-name">${t.name}</div>
+      <div style="font-size:.76rem;color:var(--tx3)">Manager: ${mgr}</div>
+      <div class="team-meta">
+        <span><strong>${mc}</strong> members</span>
+        <span>Default: <span class="role-badge ${(t.defaultRole||'sales').toLowerCase().replace(/\s/g,'')}" style="font-size:.6rem">${t.defaultRole||'Sales'}</span></span>
+      </div>
+    </div>`;
+  }).join('') || '<div style="color:var(--tx3);font-size:.82rem;padding:20px;text-align:center">No teams yet. Create one above.</div>';
+}
+
+// ── ROLES ──
+function admRenderRoles() {
+  const grid = document.getElementById('adm-roles-grid');
+  grid.innerHTML = admState.roles.map(r => {
+    const userCount = admState.users.filter(u=>u.roleId===r.id).length;
+    const permCount = r.id==='superadmin'?'All':Object.values(admState.permissions[r.id]||{}).filter(v=>v).length;
+    const sysTag = r.system ? '<span class="tag bl" style="font-size:.55rem">SYSTEM</span>' : '<span class="tag go" style="font-size:.55rem">CUSTOM</span>';
+    return `<div class="role-card">
+      <div class="role-name"><span class="role-badge ${r.id}" style="font-size:.7rem;padding:4px 10px">${r.name}</span> ${sysTag}</div>
+      <div class="role-desc">${r.desc}</div>
+      <div style="display:flex;gap:12px;align-items:center;font-size:.72rem;color:var(--tx3)">
+        <span>👥 ${userCount} users</span>
+        <span>🔐 ${permCount} permissions</span>
+        ${!r.system?`<button class="btn ghost xs" onclick="admShowModal('edit-role','${r.id}')" style="margin-left:auto">Edit</button><button class="btn ghost xs" onclick="admCloneRole('${r.id}')">Clone</button>`:`<button class="btn ghost xs" onclick="admCloneRole('${r.id}')" style="margin-left:auto">Clone</button>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function admCloneRole(id) {
+  const src = admState.roles.find(r=>r.id===id);
+  if(!src) return;
+  const newId = 'custom_'+Date.now();
+  admState.roles.push({id:newId,name:src.name+' (Copy)',desc:src.desc,system:false,color:src.color,permissions:null});
+  admState.permissions[newId] = {...(admState.permissions[src.id]||{})};
+  admAudit('role_cloned',src.name,'Cloned to '+src.name+' (Copy)','role');
+  admSave();admRenderRoles();admRenderStats();toast('Role cloned','gr');
+}
+
+// ── PERMISSION MATRIX ──
+function admRenderPermMatrix() {
+  const roles = admState.roles;
+  let html = '<table class="perm-tbl"><thead><tr><th>Permission</th>';
+  roles.forEach(r => { html += `<th>${r.name}</th>`; });
+  html += '</tr></thead><tbody>';
+  ADM_PERM_CATEGORIES.forEach(cat => {
+    html += `<tr class="perm-cat"><td colspan="${roles.length+1}">${cat.cat}</td></tr>`;
+    cat.perms.forEach(p => {
+      html += `<tr><td>${ADM_PERM_LABELS[p]||p}</td>`;
+      roles.forEach(r => {
+        const isOn = r.id==='superadmin' || (admState.permissions[r.id] && admState.permissions[r.id][p]);
+        const locked = r.id==='superadmin';
+        html += `<td><div class="perm-check ${isOn?'on':''} ${locked?'locked':''}" onclick="${locked?'':`admTogglePerm('${r.id}','${p}',this)`}">${isOn?'✓':''}</div></td>`;
+      });
+      html += '</tr>';
+    });
+  });
+  html += '</tbody></table>';
+  document.getElementById('adm-perm-matrix').innerHTML = html;
+}
+
+function admTogglePerm(roleId, perm, el) {
+  if(!admState.permissions[roleId]) admState.permissions[roleId] = {};
+  const cur = !!admState.permissions[roleId][perm];
+  admState.permissions[roleId][perm] = !cur;
+  el.classList.toggle('on');
+  el.textContent = !cur ? '✓' : '';
+}
+
+function admSavePermissions() {
+  admConfirm('🔐','Save Permission Changes?','This will update access for all users with affected roles.',() => {
+    admAudit('permissions_updated','Permission Matrix','Bulk permission update saved','security');
+    admSave();toast('Permissions saved','gr');admRenderPermMatrix();
+  });
+}
+
+// ── INVITES ──
+function admRenderInvites() {
+  const q = (document.getElementById('adm-invite-search')?.value||'').toLowerCase();
+  const fs = document.getElementById('adm-filter-invite-status')?.value||'';
+  const list = document.getElementById('adm-invites-list');
+  const invites = admState.invites.filter(inv => {
+    if(q && !inv.email.toLowerCase().includes(q)) return false;
+    if(fs && inv.status !== fs) return false;
+    return true;
+  });
+  if(invites.length === 0) {
+    list.innerHTML = '<div style="color:var(--tx3);font-size:.82rem;padding:20px;text-align:center">No invitations yet. Send one above.</div>';
+    return;
+  }
+  list.innerHTML = invites.map(inv => {
+    const statusCls = inv.status==='pending'?'go':inv.status==='accepted'?'gr':inv.status==='expired'?'rd':'tx3';
+    const actions = inv.status==='pending' ? `<button class="btn ghost xs" onclick="admResendInvite('${inv.id}')">Resend</button><button class="btn ghost xs" onclick="admCancelInvite('${inv.id}')">Cancel</button>` : '';
+    return `<div class="invite-card">
+      <div class="iw sm ${statusCls}">✉</div>
+      <div class="invite-info">
+        <div class="invite-email">${inv.email}</div>
+        <div class="invite-meta">Role: ${inv.role} · Team: ${inv.team||'None'} · Sent: ${new Date(inv.sentAt).toLocaleDateString()} · ${inv.status.toUpperCase()}</div>
+      </div>
+      <span class="status-badge ${inv.status}">${inv.status.charAt(0).toUpperCase()+inv.status.slice(1)}</span>
+      <div style="display:flex;gap:4px">${actions}</div>
+    </div>`;
+  }).join('');
+}
+function admResendInvite(id) {
+  const inv = admState.invites.find(x=>x.id===id);
+  if(!inv) return;
+  inv.sentAt = new Date().toISOString();
+  admAudit('invite_resent',inv.email,'Invitation resent','user');
+  admSave(); admRenderInvites(); toast('Invite resent to '+inv.email,'bl');
+}
+function admCancelInvite(id) {
+  const inv = admState.invites.find(x=>x.id===id);
+  if(!inv) return;
+  inv.status = 'canceled';
+  admAudit('invite_canceled',inv.email,'Invitation canceled','user');
+  admSave(); admRenderInvites(); admRenderStats(); toast('Invite canceled','go');
+}
+
+// ── AUDIT LOG ──
+function admRenderAudit() {
+  const el = document.getElementById('adm-audit-log');
+  const icons = {user_created:'🟢',user_updated:'✏️',user_deleted:'🗑',user_suspended:'⏸',user_deactivated:'🚫',user_reactivated:'✅',role_created:'🛡️',role_updated:'🛡️',role_cloned:'📋',team_created:'🏢',team_updated:'🏢',invite_sent:'✉',invite_resent:'📨',invite_canceled:'❌',invite_accepted:'✅',permissions_updated:'🔐',system_init:'⚡'};
+  const catColors = {user:'bl',security:'rd',role:'pu',team:'te',system:'go'};
+  el.innerHTML = admState.audit.map(a => {
+    const icon = icons[a.action]||'📋';
+    const cc = catColors[a.category]||'bl';
+    return `<div class="audit-entry">
+      <div class="audit-icon iw sm ${cc}">${icon}</div>
+      <div class="audit-text"><strong>${a.actor}</strong> ${a.detail} — <em>${a.target}</em></div>
+      <div class="audit-time">${admTimeAgo(a.ts)}</div>
+    </div>`;
+  }).join('') || '<div style="color:var(--tx3);font-size:.82rem;text-align:center;padding:20px">No audit entries yet.</div>';
+}
+function admExportAudit() {
+  let csv = 'Timestamp,Actor,Action,Target,Detail,Category\n';
+  admState.audit.forEach(a => {
+    csv += `"${a.ts}","${a.actor}","${a.action}","${a.target}","${a.detail}","${a.category}"\n`;
+  });
+  const blob = new Blob([csv],{type:'text/csv'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'BD2_Audit_Log_'+new Date().toISOString().split('T')[0]+'.csv';
+  link.click();
+  toast('Audit log exported','gr');
+}
+
+// ── MODALS ──
+function admShowModal(type, id) {
+  const modal = document.getElementById('adm-modal');
+  let html = '';
+  if(type === 'add-user') {
+    html = `<div class="adm-modal"><div class="adm-modal-hd"><div class="iw sm pu">👤</div><span class="modal-title">Add New User</span><button class="modal-close" onclick="admCloseModal()">✕</button></div>
+    <div class="adm-modal-bd">
+      <div class="adm-field"><label>Full Name *</label><input class="inp" id="mu-name" placeholder="John Smith"></div>
+      <div class="adm-field"><label>Email *</label><input class="inp" id="mu-email" type="email" placeholder="john@cardoneventures.com"></div>
+      <div class="adm-field"><label>Phone</label><input class="inp" id="mu-phone" type="tel" placeholder="(555) 123-4567"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="adm-field"><label>Role *</label><select class="inp" id="mu-role">${admState.roles.map(r=>`<option value="${r.id}" ${r.id==='sales'?'selected':''}>${r.name}</option>`).join('')}</select></div>
+        <div class="adm-field"><label>Team</label><select class="inp" id="mu-team"><option value="">No Team</option>${admState.teams.filter(t=>!t.archived).map(t=>`<option value="${t.name}">${t.name}</option>`).join('')}</select></div>
+      </div>
+      <div class="adm-field"><label>Department</label><input class="inp" id="mu-dept" placeholder="e.g. Sales, Marketing"></div>
+      <div class="adm-field"><label>Status</label><select class="inp" id="mu-status"><option value="active">Active</option><option value="invited">Invited</option><option value="pending">Pending</option></select></div>
+    </div>
+    <div class="adm-modal-ft"><button class="btn ghost sm" onclick="admCloseModal()">Cancel</button><button class="btn pu sm" onclick="admSaveNewUser()">Create User</button></div></div>`;
+  } else if(type === 'edit-user') {
+    const u = admState.users.find(x=>x.id===id);
+    if(!u) return;
+    html = `<div class="adm-modal"><div class="adm-modal-hd"><div class="iw sm bl">✏️</div><span class="modal-title">Edit User — ${u.name}</span><button class="modal-close" onclick="admCloseModal()">✕</button></div>
+    <div class="adm-modal-bd">
+      <div class="adm-field"><label>Full Name *</label><input class="inp" id="mu-name" value="${u.name}"></div>
+      <div class="adm-field"><label>Email *</label><input class="inp" id="mu-email" type="email" value="${u.email}"></div>
+      <div class="adm-field"><label>Phone</label><input class="inp" id="mu-phone" type="tel" value="${u.phone||''}"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="adm-field"><label>Role *</label><select class="inp" id="mu-role">${admState.roles.map(r=>`<option value="${r.id}" ${r.id===u.roleId?'selected':''}>${r.name}</option>`).join('')}</select></div>
+        <div class="adm-field"><label>Team</label><select class="inp" id="mu-team"><option value="">No Team</option>${admState.teams.filter(t=>!t.archived).map(t=>`<option value="${t.name}" ${t.name===u.team?'selected':''}>${t.name}</option>`).join('')}</select></div>
+      </div>
+      <div class="adm-field"><label>Department</label><input class="inp" id="mu-dept" value="${u.department||''}"></div>
+      <div class="adm-field"><label>Status</label><select class="inp" id="mu-status"><option value="active" ${u.status==='active'?'selected':''}>Active</option><option value="invited" ${u.status==='invited'?'selected':''}>Invited</option><option value="pending" ${u.status==='pending'?'selected':''}>Pending</option><option value="disabled" ${u.status==='disabled'?'selected':''}>Disabled</option><option value="suspended" ${u.status==='suspended'?'selected':''}>Suspended</option></select></div>
+    </div>
+    <div class="adm-modal-ft"><button class="btn ghost sm" onclick="admCloseModal()">Cancel</button><button class="btn pu sm" onclick="admSaveEditUser('${u.id}')">Save Changes</button></div></div>`;
+  } else if(type === 'invite') {
+    html = `<div class="adm-modal"><div class="adm-modal-hd"><div class="iw sm bl">✉</div><span class="modal-title">Send Invitation</span><button class="modal-close" onclick="admCloseModal()">✕</button></div>
+    <div class="adm-modal-bd">
+      <div class="adm-field"><label>Email Address *</label><input class="inp" id="mi-email" type="email" placeholder="newuser@cardoneventures.com"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div class="adm-field"><label>Assign Role</label><select class="inp" id="mi-role">${admState.roles.map(r=>`<option value="${r.id}" ${r.id==='sales'?'selected':''}>${r.name}</option>`).join('')}</select></div>
+        <div class="adm-field"><label>Assign Team</label><select class="inp" id="mi-team"><option value="">No Team</option>${admState.teams.filter(t=>!t.archived).map(t=>`<option value="${t.name}">${t.name}</option>`).join('')}</select></div>
+      </div>
+      <div style="font-size:.75rem;color:var(--tx3);background:var(--bl-bg);border:1px solid var(--bl-b);border-radius:var(--r3);padding:10px;line-height:1.5">The invited user will receive an email with instructions to set up their account. The invitation expires after 7 days.</div>
+    </div>
+    <div class="adm-modal-ft"><button class="btn ghost sm" onclick="admCloseModal()">Cancel</button><button class="btn bl sm" onclick="admSendInvite()">Send Invitation</button></div></div>`;
+  } else if(type === 'add-team') {
+    html = `<div class="adm-modal"><div class="adm-modal-hd"><div class="iw sm te">🏢</div><span class="modal-title">Create Team</span><button class="modal-close" onclick="admCloseModal()">✕</button></div>
+    <div class="adm-modal-bd">
+      <div class="adm-field"><label>Team Name *</label><input class="inp" id="mt-name" placeholder="e.g. Sales Team Alpha"></div>
+      <div class="adm-field"><label>Manager</label><select class="inp" id="mt-mgr"><option value="">No Manager</option>${admState.users.filter(u=>u.status==='active').map(u=>`<option value="${u.name}">${u.name}</option>`).join('')}</select></div>
+      <div class="adm-field"><label>Default Role for New Members</label><select class="inp" id="mt-role">${admState.roles.map(r=>`<option value="${r.name}" ${r.id==='sales'?'selected':''}>${r.name}</option>`).join('')}</select></div>
+    </div>
+    <div class="adm-modal-ft"><button class="btn ghost sm" onclick="admCloseModal()">Cancel</button><button class="btn pu sm" onclick="admSaveNewTeam()">Create Team</button></div></div>`;
+  } else if(type === 'edit-team') {
+    const t = admState.teams.find(x=>x.id===id);
+    if(!t) return;
+    const memberHtml = t.members.map(mid => {
+      const u = admState.users.find(x=>x.id===mid);
+      return u ? `<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--bd)"><span style="font-size:.8rem">${u.name}</span><span class="role-badge ${u.roleId}" style="font-size:.55rem">${u.role}</span><button class="btn ghost xs" onclick="admRemoveFromTeam('${t.id}','${mid}')" style="margin-left:auto">Remove</button></div>` : '';
+    }).join('');
+    html = `<div class="adm-modal"><div class="adm-modal-hd"><div class="iw sm te">🏢</div><span class="modal-title">Edit Team — ${t.name}</span><button class="modal-close" onclick="admCloseModal()">✕</button></div>
+    <div class="adm-modal-bd">
+      <div class="adm-field"><label>Team Name *</label><input class="inp" id="mt-name" value="${t.name}"></div>
+      <div class="adm-field"><label>Manager</label><select class="inp" id="mt-mgr"><option value="">No Manager</option>${admState.users.filter(u=>u.status==='active').map(u=>`<option value="${u.name}" ${u.name===t.manager?'selected':''}>${u.name}</option>`).join('')}</select></div>
+      <div class="adm-field"><label>Default Role</label><select class="inp" id="mt-role">${admState.roles.map(r=>`<option value="${r.name}" ${r.name===t.defaultRole?'selected':''}>${r.name}</option>`).join('')}</select></div>
+      <div class="adm-field"><label>Members (${t.members.length})</label>${memberHtml||'<div style="font-size:.78rem;color:var(--tx3)">No members yet</div>'}</div>
+      <div class="adm-field"><label>Add Member</label><select class="inp" id="mt-add-member"><option value="">Select user...</option>${admState.users.filter(u=>!t.members.includes(u.id)&&u.status==='active').map(u=>`<option value="${u.id}">${u.name}</option>`).join('')}</select><button class="btn bl xs" style="margin-top:6px" onclick="admAddToTeam('${t.id}')">+ Add</button></div>
+    </div>
+    <div class="adm-modal-ft"><button class="btn ghost sm" onclick="admCloseModal()">Cancel</button><button class="btn rd sm" onclick="admArchiveTeam('${t.id}')">Archive</button><button class="btn pu sm" onclick="admSaveEditTeam('${t.id}')">Save</button></div></div>`;
+  } else if(type === 'add-role') {
+    html = `<div class="adm-modal"><div class="adm-modal-hd"><div class="iw sm pu">🛡️</div><span class="modal-title">Create Custom Role</span><button class="modal-close" onclick="admCloseModal()">✕</button></div>
+    <div class="adm-modal-bd">
+      <div class="adm-field"><label>Role Name *</label><input class="inp" id="mr-name" placeholder="e.g. Team Lead"></div>
+      <div class="adm-field"><label>Description</label><input class="inp" id="mr-desc" placeholder="Brief description of this role"></div>
+      <div class="adm-field"><label>Base Permissions From</label><select class="inp" id="mr-base">${admState.roles.map(r=>`<option value="${r.id}">${r.name}</option>`).join('')}</select></div>
+    </div>
+    <div class="adm-modal-ft"><button class="btn ghost sm" onclick="admCloseModal()">Cancel</button><button class="btn pu sm" onclick="admSaveNewRole()">Create Role</button></div></div>`;
+  } else if(type === 'bulk-role') {
+    html = `<div class="adm-modal" style="width:340px"><div class="adm-modal-hd"><span class="modal-title">Assign Role to ${admState.selectedUsers.length} Users</span><button class="modal-close" onclick="admCloseModal()">✕</button></div>
+    <div class="adm-modal-bd"><div class="adm-field"><label>Role</label><select class="inp" id="mb-role">${admState.roles.map(r=>`<option value="${r.id}">${r.name}</option>`).join('')}</select></div></div>
+    <div class="adm-modal-ft"><button class="btn ghost sm" onclick="admCloseModal()">Cancel</button><button class="btn pu sm" onclick="admBulkAssignRole()">Assign</button></div></div>`;
+  } else if(type === 'bulk-team') {
+    html = `<div class="adm-modal" style="width:340px"><div class="adm-modal-hd"><span class="modal-title">Assign Team to ${admState.selectedUsers.length} Users</span><button class="modal-close" onclick="admCloseModal()">✕</button></div>
+    <div class="adm-modal-bd"><div class="adm-field"><label>Team</label><select class="inp" id="mb-team"><option value="">No Team</option>${admState.teams.filter(t=>!t.archived).map(t=>`<option value="${t.name}">${t.name}</option>`).join('')}</select></div></div>
+    <div class="adm-modal-ft"><button class="btn ghost sm" onclick="admCloseModal()">Cancel</button><button class="btn pu sm" onclick="admBulkAssignTeam()">Assign</button></div></div>`;
+  }
+  modal.innerHTML = html;
+  modal.classList.add('show');
+}
+function admCloseModal() {
+  document.getElementById('adm-modal').classList.remove('show');
+  document.getElementById('adm-modal').innerHTML = '';
+}
+
+// ── SAVE HANDLERS ──
+function admSaveNewUser() {
+  const name = document.getElementById('mu-name')?.value.trim();
+  const email = document.getElementById('mu-email')?.value.trim();
+  if(!name||!email){toast('Name and email are required','rd');return;}
+  if(admState.users.find(u=>u.email.toLowerCase()===email.toLowerCase())){toast('User with this email already exists','rd');return;}
+  const roleId = document.getElementById('mu-role')?.value;
+  const role = admState.roles.find(r=>r.id===roleId);
+  const newUser = {
+    id:'u'+Date.now(),name,email,phone:document.getElementById('mu-phone')?.value||'',
+    role:role?role.name:'Sales',roleId:roleId||'sales',
+    team:document.getElementById('mu-team')?.value||'',
+    department:document.getElementById('mu-dept')?.value||'',
+    status:document.getElementById('mu-status')?.value||'active',
+    createdAt:new Date().toISOString(),createdBy:admCurrentUser(),
+    lastLogin:null,updatedAt:new Date().toISOString(),updatedBy:admCurrentUser(),invitedAt:null
+  };
+  admState.users.push(newUser);
+  // Add to team if specified
+  if(newUser.team){const t=admState.teams.find(x=>x.name===newUser.team);if(t&&!t.members.includes(newUser.id))t.members.push(newUser.id);}
+  admAudit('user_created',newUser.name,`Created with role ${newUser.role}`,'user');
+  admSave();admCloseModal();admRenderAll();toast('User created: '+name,'gr');
+}
+
+function admSaveEditUser(id) {
+  const u = admState.users.find(x=>x.id===id);
+  if(!u) return;
+  const name = document.getElementById('mu-name')?.value.trim();
+  const email = document.getElementById('mu-email')?.value.trim();
+  if(!name||!email){toast('Name and email are required','rd');return;}
+  const oldRole = u.role;
+  const roleId = document.getElementById('mu-role')?.value;
+  const role = admState.roles.find(r=>r.id===roleId);
+  // Safety: prevent downgrading the last super admin
+  if(u.roleId==='superadmin' && roleId!=='superadmin' && admState.users.filter(x=>x.roleId==='superadmin').length<=1) {
+    toast('Cannot remove Super Admin from the last Super Admin account','rd');return;
+  }
+  // Remove from old team
+  if(u.team){const ot=admState.teams.find(x=>x.name===u.team);if(ot)ot.members=ot.members.filter(m=>m!==id);}
+  u.name=name;u.email=email;u.phone=document.getElementById('mu-phone')?.value||'';
+  u.role=role?role.name:'Sales';u.roleId=roleId||'sales';
+  u.team=document.getElementById('mu-team')?.value||'';
+  u.department=document.getElementById('mu-dept')?.value||'';
+  u.status=document.getElementById('mu-status')?.value||u.status;
+  u.updatedAt=new Date().toISOString();u.updatedBy=admCurrentUser();
+  // Add to new team
+  if(u.team){const nt=admState.teams.find(x=>x.name===u.team);if(nt&&!nt.members.includes(id))nt.members.push(id);}
+  const changes = [];
+  if(oldRole!==u.role) changes.push(`role: ${oldRole} → ${u.role}`);
+  admAudit('user_updated',u.name,changes.length?changes.join(', '):'Profile updated','user');
+  admSave();admCloseModal();admRenderAll();toast('User updated','gr');
+}
+
+function admSendInvite() {
+  const email = document.getElementById('mi-email')?.value.trim();
+  if(!email){toast('Email is required','rd');return;}
+  if(admState.invites.find(i=>i.email.toLowerCase()===email.toLowerCase()&&i.status==='pending')){toast('Invite already pending for this email','go');return;}
+  const roleId = document.getElementById('mi-role')?.value;
+  const role = admState.roles.find(r=>r.id===roleId);
+  const inv = {
+    id:'inv'+Date.now(),email,role:role?role.name:'Sales',roleId:roleId||'sales',
+    team:document.getElementById('mi-team')?.value||'',
+    status:'pending',sentAt:new Date().toISOString(),sentBy:admCurrentUser(),acceptedAt:null
+  };
+  admState.invites.push(inv);
+  admAudit('invite_sent',email,`Invited as ${inv.role}`,'user');
+  admSave();admCloseModal();admRenderAll();toast('Invitation sent to '+email,'bl');
+}
+
+function admSaveNewTeam() {
+  const name = document.getElementById('mt-name')?.value.trim();
+  if(!name){toast('Team name is required','rd');return;}
+  if(admState.teams.find(t=>t.name.toLowerCase()===name.toLowerCase()&&!t.archived)){toast('Team already exists','rd');return;}
+  const team = {
+    id:'t'+Date.now(),name,manager:document.getElementById('mt-mgr')?.value||'',
+    defaultRole:document.getElementById('mt-role')?.value||'Sales',
+    members:[],archived:false,createdAt:new Date().toISOString()
+  };
+  admState.teams.push(team);
+  admAudit('team_created',name,'New team created','team');
+  admSave();admCloseModal();admRenderAll();admUpdateTeamFilter();toast('Team created: '+name,'gr');
+}
+
+function admSaveEditTeam(id) {
+  const t = admState.teams.find(x=>x.id===id);
+  if(!t) return;
+  t.name = document.getElementById('mt-name')?.value.trim()||t.name;
+  t.manager = document.getElementById('mt-mgr')?.value||'';
+  t.defaultRole = document.getElementById('mt-role')?.value||t.defaultRole;
+  admAudit('team_updated',t.name,'Team settings updated','team');
+  admSave();admCloseModal();admRenderAll();admUpdateTeamFilter();toast('Team updated','gr');
+}
+
+function admArchiveTeam(id) {
+  admConfirm('📦','Archive this team?','Members will be removed from the team.',() => {
+    const t=admState.teams.find(x=>x.id===id);
+    if(!t)return;
+    t.archived=true;t.members.forEach(mid=>{const u=admState.users.find(x=>x.id===mid);if(u)u.team='';});t.members=[];
+    admAudit('team_archived',t.name,'Team archived','team');
+    admSave();admCloseModal();admRenderAll();admUpdateTeamFilter();toast('Team archived','go');
+  });
+}
+
+function admAddToTeam(teamId) {
+  const sel = document.getElementById('mt-add-member');
+  const uid = sel?.value;
+  if(!uid) return;
+  const t = admState.teams.find(x=>x.id===teamId);
+  const u = admState.users.find(x=>x.id===uid);
+  if(!t||!u) return;
+  if(!t.members.includes(uid)) t.members.push(uid);
+  u.team = t.name;
+  admAudit('team_member_added',u.name,'Added to '+t.name,'team');
+  admSave();admShowModal('edit-team',teamId); // refresh modal
+}
+
+function admRemoveFromTeam(teamId, userId) {
+  const t = admState.teams.find(x=>x.id===teamId);
+  const u = admState.users.find(x=>x.id===userId);
+  if(!t||!u) return;
+  t.members = t.members.filter(m=>m!==userId);
+  u.team = '';
+  admAudit('team_member_removed',u.name,'Removed from '+t.name,'team');
+  admSave();admShowModal('edit-team',teamId);
+}
+
+function admSaveNewRole() {
+  const name = document.getElementById('mr-name')?.value.trim();
+  if(!name){toast('Role name is required','rd');return;}
+  const baseId = document.getElementById('mr-base')?.value||'readonly';
+  const newId = 'custom_'+Date.now();
+  admState.roles.push({id:newId,name,desc:document.getElementById('mr-desc')?.value||'',system:false,color:'bl',permissions:null});
+  admState.permissions[newId] = {...(admState.permissions[baseId]||{})};
+  admAudit('role_created',name,'Custom role created based on '+baseId,'role');
+  admSave();admCloseModal();admRenderAll();toast('Role created: '+name,'gr');
+}
+
+function admBulkAssignRole() {
+  const roleId = document.getElementById('mb-role')?.value;
+  const role = admState.roles.find(r=>r.id===roleId);
+  if(!role) return;
+  admState.selectedUsers.forEach(uid => {
+    const u = admState.users.find(x=>x.id===uid);
+    if(!u) return;
+    if(u.roleId==='superadmin'&&roleId!=='superadmin'&&admState.users.filter(x=>x.roleId==='superadmin').length<=1) return;
+    u.role=role.name;u.roleId=roleId;u.updatedAt=new Date().toISOString();u.updatedBy=admCurrentUser();
+  });
+  admAudit('bulk_role_assign','Multiple Users','Assigned '+role.name+' to '+admState.selectedUsers.length+' users','user');
+  admState.selectedUsers=[];admSave();admCloseModal();admRenderAll();toast('Roles assigned','gr');
+}
+
+function admBulkAssignTeam() {
+  const team = document.getElementById('mb-team')?.value||'';
+  admState.selectedUsers.forEach(uid => {
+    const u = admState.users.find(x=>x.id===uid);
+    if(!u) return;
+    if(u.team){const ot=admState.teams.find(x=>x.name===u.team);if(ot)ot.members=ot.members.filter(m=>m!==uid);}
+    u.team=team;u.updatedAt=new Date().toISOString();
+    if(team){const nt=admState.teams.find(x=>x.name===team);if(nt&&!nt.members.includes(uid))nt.members.push(uid);}
+  });
+  admAudit('bulk_team_assign','Multiple Users','Assigned to '+(team||'No Team'),'team');
+  admState.selectedUsers=[];admSave();admCloseModal();admRenderAll();toast('Teams assigned','gr');
+}
+
+// ── CONFIRM DIALOG ──
+let admConfirmCb = null;
+function admConfirm(icon, title, msg, onConfirm) {
+  admConfirmCb = onConfirm;
+  const el = document.getElementById('adm-confirm');
+  el.innerHTML = `<div class="confirm-box">
+    <div class="confirm-icon">${icon}</div>
+    <div class="confirm-title">${title}</div>
+    <div class="confirm-msg">${msg}</div>
+    <div class="confirm-actions">
+      <button class="btn ghost sm" onclick="admCloseConfirm()">Cancel</button>
+      <button class="btn rd sm" onclick="admDoConfirm()">Confirm</button>
+    </div>
+  </div>`;
+  el.classList.add('show');
+}
+function admDoConfirm() {
+  if(admConfirmCb) admConfirmCb();
+  admCloseConfirm();
+}
+function admCloseConfirm() {
+  document.getElementById('adm-confirm').classList.remove('show');
+  admConfirmCb = null;
+}
+
+// ── TEAM FILTER DROPDOWN ──
+function admUpdateTeamFilter() {
+  const sel = document.getElementById('adm-filter-team');
+  if(!sel) return;
+  const val = sel.value;
+  sel.innerHTML = '<option value="">All Teams</option>' + admState.teams.filter(t=>!t.archived).map(t=>`<option value="${t.name}">${t.name}</option>`).join('');
+  sel.value = val;
+}
+
+// ── INIT ON PANEL SWITCH ──
+(function(){
+  const origGoMode = window.goMode;
+  if(origGoMode) {
+    window.goMode = function(n, el) {
+      origGoMode(n, el);
+      if(n === 12) { if(!admState) admLoad(); admRenderAll(); }
+    };
+  }
+})();
+// Also load admin data on page load
+try { admLoad(); } catch(e) {}
 </script>
 </body>
 </html>
